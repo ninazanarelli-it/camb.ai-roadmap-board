@@ -1,0 +1,26 @@
+:root {
+  --bg: #F5F5F5; --surface: #ECECEC; --hover: #ECECEC; --line: #E0E0E0; --line-soft: #ECECEC;
+  --ink: #202020; --ink-2: #89898A; --ink-3: #C3C3C5;
+  --primary: #EC5512; --primary-2: #CF4B10; --primary-tint: rgba(236, 85, 18, 0.15);
+  --error-tint: rgba(247, 59, 59, 0.12); --error-ink: #9F2626;
+}
+[data-theme="dark"] {
+  --bg: #181818; --surface: #1C1C1C; --hover: #292929; --line: #292929; --line-soft: #1C1C1C;
+  --ink: #FFFFFF; --ink-2: #A8A8AA; --ink-3: #626262;
+  --primary: #EC5512; --primary-2: #F7793E; --primary-tint: rgba(236, 85, 18, 0.22);
+  --error-tint: rgba(247, 59, 59, 0.18); --error-ink: #F73B3B;
+}
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "InterDisplay", "Inter Display", "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-2); }
+::selection { background: var(--primary-tint); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.row:hover { background: var(--hover); }
+.iconBtn:hover { background: var(--hover); color: var(--ink) !important; }
+.airtableLink:hover { color: var(--primary) !important; }
+.reportToggle:hover { background: var(--hover); }
