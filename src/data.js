@@ -44,7 +44,7 @@ export const team = [
   },
   {
     id: "ahamad-chatterbox",
-    name: "Ahamad",
+    name: "Ahmad",
     avatar: { light: { bg: "#FFF0E4", fg: "#B5561B" }, dark: { bg: "#3B2A1E", fg: "#FFB782" } },
     current: {
       title: "Chatterbox",
