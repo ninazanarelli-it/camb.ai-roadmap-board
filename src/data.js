@@ -1,7 +1,26 @@
 // Data layer. Swap loadBoard() for an Airtable API call later — the UI only
 // depends on the shape returned here.
 
-export const lastUpdated = "Aug 18, 2026 · 09:40";
+// __BUILD_TIME__ is injected by vite.config.js at build time, so this always
+// reflects when the site was last deployed rather than a hand-edited date.
+function formatBuildTime(iso) {
+  const date = new Date(iso);
+  const datePart = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "Asia/Dubai",
+  }).format(date);
+  const timePart = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Asia/Dubai",
+  }).format(date);
+  return `${datePart} · ${timePart}`;
+}
+
+export const lastUpdated = formatBuildTime(__BUILD_TIME__);
 
 export const team = [
   {
