@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Google Sign-In test</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <h3>Minimal Google Sign-In test</h3>
+  <div id="g_id_onload"
+    data-client_id="696941757822-hjvmp7lm0jp8u6jvdhojsf4ffqa6gorl.apps.googleusercontent.com"
+    data-callback="handleCredentialResponse">
+  </div>
+  <div class="g_id_signin" data-type="standard"></div>
+  <pre id="out"></pre>
+  <script>
+    function handleCredentialResponse(response) {
+      document.getElementById("out").textContent = JSON.stringify(response, null, 2);
+    }
+  </script>
+</body>
+</html>
