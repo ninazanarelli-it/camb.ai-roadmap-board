@@ -59,7 +59,7 @@ export const team = [
     name: "Kavii",
     avatar: { light: { bg: "#E5FBED", fg: "#0F741F" }, dark: { bg: "#1E3E26", fg: "#76F295" } },
     current: { title: "Lipsync", status: "On going", targetDate: null, airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwlTXRWuh38X8PZc?blocks=hide" },
-    roles: [{ label: "QA", name: "Kavyastree" }],
+    roles: [{ label: "QA", name: "Kavyasree" }],
   },
 ];
 
