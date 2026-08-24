@@ -2,8 +2,33 @@ import React, { useEffect, useRef, useState } from "react";
 
 const ALLOWED_DOMAIN = "camb.ai";
 const AUTH_KEY = "roadmap-board-auth";
+const LAST_LOGGED_KEY = "roadmap-board-last-logged";
 const SESSION_DAYS = 7;
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+// Notifies Slack the first time a signed-in visitor is seen on a given day
+// (Dubai time) — silent no-op on failure, this is a nice-to-have, not a gate.
+function logVisitOncePerDay(session) {
+  let today;
+  try {
+    today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Dubai" });
+  } catch (e) {
+    return;
+  }
+  let last = null;
+  try {
+    last = localStorage.getItem(LAST_LOGGED_KEY);
+  } catch (e) {}
+  if (last === today) return;
+  fetch("/api/log-visit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: session.email, name: session.name }),
+  }).catch(() => {});
+  try {
+    localStorage.setItem(LAST_LOGGED_KEY, today);
+  } catch (e) {}
+}
 
 // Decodes the JWT payload without verifying its signature — this is a
 // client-side convenience gate for an internal tool, not a security boundary.
@@ -71,6 +96,11 @@ export default function AuthGate({ children }) {
     return () => {
       cancelled = true;
     };
+  }, [session]);
+
+  useEffect(() => {
+    if (!session) return;
+    logVisitOncePerDay(session);
   }, [session]);
 
   if (session) return children;
