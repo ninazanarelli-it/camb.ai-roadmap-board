@@ -43,7 +43,7 @@ export const team = [
     roles: [{ label: "Product", name: "Nina" }, { label: "QA", name: "Prachi" }],
   },
   {
-    id: "ahamad-chatterbox",
+    id: "ahmad-chatterbox",
     name: "Ahmad",
     avatar: { light: { bg: "#FFF0E4", fg: "#B5561B" }, dark: { bg: "#3B2A1E", fg: "#FFB782" } },
     current: {
@@ -53,6 +53,13 @@ export const team = [
       airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwc4hvtTifTvB3Sb?blocks=hide",
     },
     roles: [{ label: "Product", name: "Nina" }, { label: "QA", name: "Joshua" }],
+  },
+  {
+    id: "khushi-onboarding",
+    name: "Khushi",
+    avatar: { light: { bg: "#F2EEFF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
+    current: { title: "No sign up onboarding", status: "In Progress", targetDate: null, airtableUrl: null },
+    roles: [{ label: "QA", name: "Prachi" }],
   },
   {
     id: "kavii-lipsync",
@@ -119,47 +126,57 @@ export const releases = [
 export const queue = [
   { priority: 1, title: "API Docs redesign + Split Dubbing API", status: "Not Started", airtableUrl: null },
   { priority: 2, title: "Audiobook Chapters and Subchapters", status: "Not Started", airtableUrl: null },
-  { priority: 3, title: "No sign up onboarding", status: "Not Started", airtableUrl: null },
-  { priority: 4, title: "Editors export modal", status: "Not Started", airtableUrl: null },
+  { priority: 3, title: "Editors export modal", status: "Not Started", airtableUrl: null },
+  { priority: 4, title: "UX/UI Folders Structure redesign", status: "Not Started", airtableUrl: null },
 ];
 
 // On-call rotates Monday to Monday, covering the Bugs and Portal Findings boards.
 export const oncall = {
-  current: { week: "Mon Aug 17 → Mon Aug 24", engineer: "Khushi", qa: "Mohamed Nihaal" },
-  next: { week: "Mon Aug 24 → Mon Aug 31", engineer: "Kavii", qa: "Joshua Almeida" },
+  current: { week: "Mon Aug 24 → Mon Aug 31", engineer: "Kavii", qa: "Joshua Almeida" },
+  next: { week: "Mon Aug 31 → Mon Sep 7", engineer: "Divyam", qa: "Mohamed Nihaal" },
   handover: {
-    author: "Divyam Gupta",
-    range: "Mon Aug 10 → Mon Aug 17",
+    author: "Khushi Chhonkare",
+    range: "Mon Aug 17 → Mon Aug 24",
     scope: "Bugs and Portal Findings boards",
-    engineer: "Divyam Gupta",
-    qa: "Joshua Almeida",
+    engineer: "Khushi Chhonkare",
+    qa: "Mohamed Nihaal",
     numbers: [
-      { value: "29", label: "filed" },
-      { value: "20", label: "resolved" },
-      { value: "+9", label: "net" },
-      { value: "13", label: "were his" },
+      { value: "14", label: "filed" },
+      { value: "13", label: "resolved" },
+      { value: "+1", label: "net" },
+      { value: "21", label: "moved" },
     ],
     groups: [
-      { label: "Shipped", items: ["Error — linguist cannot regenerate dialogues · Aug 11"] },
+      { label: "Shipped", items: [
+        "Artifacts, words cut at the start or end of dialogues, and hallucinations · Aug 18",
+        "Artifacts, dropouts and cut offs · Aug 17",
+        "Cannot generate voice · Aug 18",
+        "Sample music for Audio Separation changed · Aug 19 · internal",
+        "Chapter name not displayed properly while typing · Aug 18 · internal",
+        "Create voice button too close to the title in the voice library · Aug 17 · internal",
+        "Final mix export broken · Aug 19 · internal",
+        "More files allowed for supplemental assets, with drag and drop when the toggle is off · Aug 18 · internal",
+        "Audio generation too slow · Aug 16",
+        "Top button tooltip said re-generate all audio · Aug 19",
+        "Transcription box disappearing and erroring on boxes that had text · Aug 18 · internal",
+        "Bulk selection dialogue generation failing · Aug 22",
+        "Cut offs, artifacts, hallucinations and source leaking into target · Aug 18",
+        "Play and pause button not working · Aug 19",
+      ] },
       { label: "Cleared QA, ready to close", items: [
-        "Chapter name not displayed properly while typing · Low · internal",
-        "Transcription box disappearing, errors on boxes with text · Low · internal",
-        "Change the sample music for Audio Separation · Low · internal",
-        "Create voice button too close to the title in voice library · Low · internal",
+        "Get started label fixed for enterprise · Medium · internal",
+        "Final mix shown as a preview in the editor · Low · internal",
+        "Toggle between original and background audio in the project editor · Low · internal",
       ] },
       { label: "In QA", items: [
-        "Final mix export is broken · High · internal",
-        "Play / pause button not working · High",
-        "Top button tooltip says re-generate all audio · Low",
-        "Show final mix as preview in the editor · Low · internal",
-        "Toggle between original and background audio in project editor · Low · internal",
-        "PNG image translation and text issue · External tool",
-        "Simplified tooltips and indicators for auto-detect lang · Low · internal",
+        "PNG image translation and text issue · blocking the project",
       ] },
-      { label: "In Todo", items: ["Frequent pops and clicks in output (MARS Instruct) · Voice"] },
-      { label: "In Triage", items: [
-        "Too slow to generate audio · Platform",
-        "Dialogues disappearing on waveform · Platform",
+      { label: "Failed QA, back for rework", items: [
+        "Users blocked from generating translations when the language is not detected · Low · internal",
+      ] },
+      { label: "In progress", items: [
+        "Audiobooks: Tamil pronunciation and word truncation issues on the instruct model · High",
+        "Frequent hallucinations in Tamil audiobooks · Low",
       ] },
     ],
   },
@@ -168,7 +185,7 @@ export const oncall = {
 
 // Notes are authored by Product only (read-only for everyone else).
 export const seedNotes = {
-  "ahamad-chatterbox": [
+  "ahmad-chatterbox": [
     { at: 41, date: "Aug 20, 2026", text: "Nina is currently preparing designs for Dictionary Support for single sessions, workspace selection, Fast and slow mode, Voice Cloning, and Voice Selection Support for incoming and outgoing audio." },
   ],
   "divyam-website-seo": [
@@ -178,6 +195,33 @@ export const seedNotes = {
     { at: 12, date: "Aug 20, 2026", text: "Text and color are now standardised in production. Icons and buttons should go soon as well. Kavii continues to work on the other components." },
     { at: 11, date: "Aug 19, 2026", text: "Colors, typography and buttons are under review. Kavii is working on implementing all the other components." },
   ],
+  "kavii-lipsync": [
+    {
+      at: 51,
+      date: "Aug 22, 2026",
+      groups: [
+        { heading: "Shipped", items: [
+          "Edge Blend controls, which fix the compositing artifacts.",
+          "Frame leaks on different frame rates are fixed.",
+          "Review comments for Lipsync are built, and Niyati has given feedback on them.",
+        ] },
+        { heading: "Investigated", items: [
+          "Issues with variable frame rate sources.",
+          "Issues with non-square pixels (SAR).",
+        ] },
+        { heading: "In progress", items: [
+          "Warnings when two faces are detected for one subject.",
+        ] },
+        { heading: "Looking for solutions", items: [
+          "Color changes introduced by the Lipsync provider.",
+          "Mouths not closing during silence, which the provider does not handle.",
+        ] },
+      ],
+    },
+  ],
+  "khushi-onboarding": [
+    { at: 61, date: "Aug 24, 2026", text: "Kickoff call set up with Nina, Khushi and Kavii." },
+  ],
   "khushi-profile-settings": [
     { at: 4, date: "Aug 19, 2026", text: "Everything will be ready to be released by tonight. Meeting 5:30pm Dubai time." },
     { at: 3, date: "Aug 18, 2026", text: "Prachi reported some UI/UX fixes Khushi is solving. Khushi is working on the FSMs." },
@@ -185,5 +229,9 @@ export const seedNotes = {
 };
 
 export function loadBoard() {
-  return { lastUpdated, team, releases, queue: queue.slice().sort((a, b) => a.priority - b.priority), oncall, seedNotes };
+  const team_ = team
+    .map((t, i) => ({ t, i, ongoing: t.current.status === "On going" ? 1 : 0 }))
+    .sort((a, b) => a.ongoing - b.ongoing || a.i - b.i)
+    .map((x) => x.t);
+  return { lastUpdated, team: team_, releases, queue: queue.slice().sort((a, b) => a.priority - b.priority), oncall, seedNotes };
 }

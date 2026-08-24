@@ -5,7 +5,7 @@ import { Avatar, Icon, IconButton, Modal, SectionHead, StatusDot } from "./ui.js
 
 const NOTES_KEY = "roadmap-board-notes-v2";
 const SEED_KEY = "roadmap-board-notes-seed";
-const SEED_VERSION = "13";
+const SEED_VERSION = "14";
 const THEME_KEY = "roadmap-board-theme";
 const dot = (s) => STATUS_COLOR[s] || "#89898A";
 const pad = (n) => String(n).padStart(2, "0");
@@ -698,7 +698,24 @@ export default function App() {
                     textWrap: "pretty",
                   }}
                 >
-                  {note.text}
+                  {note.groups ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                      {note.groups.map((group) => (
+                        <div key={group.heading}>
+                          <div style={{ fontWeight: 600, marginBottom: 6 }}>{group.heading}</div>
+                          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                            {group.items.map((item) => (
+                              <div key={item} style={{ color: "var(--ink-2)" }}>
+                                {item}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    note.text
+                  )}
                 </div>
                 <span
                   style={{

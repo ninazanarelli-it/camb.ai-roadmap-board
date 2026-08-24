@@ -102,6 +102,8 @@ export const GROUP_COLOR = {
   Shipped: "#17B530",
   "Cleared QA, ready to close": "#2E9BD6",
   "In QA": "#FFBE18",
+  "Failed QA, back for rework": "#C0392B",
+  "In progress": "#EC5512",
   "In Todo": "#89898A",
   "In Triage": "#F73B3B",
 };
@@ -110,6 +112,8 @@ export const GROUP_HINT = {
   Shipped: "live on the platform",
   "Cleared QA, ready to close": "verified, waiting to be closed",
   "In QA": "fixed, being verified",
+  "Failed QA, back for rework": "found broken in QA, needs another pass",
+  "In progress": "being actively worked on",
   "In Todo": "accepted, not started",
   "In Triage": "still being reproduced or scoped",
 };
