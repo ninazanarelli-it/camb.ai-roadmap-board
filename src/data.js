@@ -37,7 +37,7 @@ export const team = [
     current: {
       title: "Design tokens + Shared components",
       status: "In Progress",
-      targetDate: "Aug 21",
+      targetDate: "Aug 28",
       airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwhN607ZEcp5Ii7X?blocks=hide",
     },
     roles: [{ label: "Product", name: "Nina" }, { label: "QA", name: "Prachi" }],
