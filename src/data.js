@@ -58,7 +58,12 @@ export const team = [
     id: "khushi-onboarding",
     name: "Khushi",
     avatar: { light: { bg: "#F2EEFF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
-    current: { title: "No sign up onboarding", status: "In Progress", targetDate: null, airtableUrl: null },
+    current: {
+      title: "No sign up onboarding",
+      status: "In Progress",
+      targetDate: "Mon Aug 31",
+      airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwDE1Auo8LdbQ77k?blocks=hide",
+    },
     roles: [{ label: "QA", name: "Prachi" }],
   },
   {
@@ -189,6 +194,7 @@ export const seedNotes = {
     { at: 41, date: "Aug 20, 2026", text: "Nina is currently preparing designs for Dictionary Support for single sessions, workspace selection, Fast and slow mode, Voice Cloning, and Voice Selection Support for incoming and outgoing audio." },
   ],
   "divyam-website-seo": [
+    { at: 32, date: "Aug 25, 2026", text: "QA call moved to Aug 26: Kavii flagged an architectural issue in the implementation.\nThe worker hits Redis and Postgres on every request instead of the edge, so Divyam is moving to a Cloudflare KV pass through cache and generating certs for client hostnames, then testing end to end." },
     { at: 31, date: "Aug 20, 2026", text: "Late on schedule due to other priorities that came up. Divyam is starting work on it today. QA call is scheduled for Tuesday 25 August." },
   ],
   "kavii-design-tokens": [
@@ -220,6 +226,7 @@ export const seedNotes = {
     },
   ],
   "khushi-onboarding": [
+    { at: 62, date: "Aug 25, 2026", text: "First scope\nNo sign up onboarding will be implemented for Dubbing, Subtitles, Stories, TTS, Live Speech Translation and Image Translation.\n\nAfter launch\nWe track conversion and engagement for two weeks, and roll it out to the remaining tools if the numbers improve." },
     { at: 61, date: "Aug 24, 2026", text: "Kickoff call set up with Nina, Khushi and Kavii." },
   ],
   "khushi-profile-settings": [

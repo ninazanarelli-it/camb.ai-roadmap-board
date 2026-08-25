@@ -5,7 +5,7 @@ import { Avatar, Icon, IconButton, Modal, SectionHead, StatusDot } from "./ui.js
 
 const NOTES_KEY = "roadmap-board-notes-v2";
 const SEED_KEY = "roadmap-board-notes-seed";
-const SEED_VERSION = "14";
+const SEED_VERSION = "15";
 const THEME_KEY = "roadmap-board-theme";
 const dot = (s) => STATUS_COLOR[s] || "#89898A";
 const pad = (n) => String(n).padStart(2, "0");
@@ -714,7 +714,7 @@ export default function App() {
                       ))}
                     </div>
                   ) : (
-                    note.text
+                    <span style={{ whiteSpace: "pre-line" }}>{note.text}</span>
                   )}
                 </div>
                 <span
