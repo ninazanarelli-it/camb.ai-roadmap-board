@@ -61,7 +61,7 @@ export const team = [
     current: {
       title: "No sign up onboarding",
       status: "In Progress",
-      targetDate: "Mon Aug 31",
+      targetDate: "Aug 31",
       airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwDE1Auo8LdbQ77k?blocks=hide",
     },
     roles: [{ label: "QA", name: "Prachi" }],
@@ -191,6 +191,37 @@ export const oncall = {
 // Notes are authored by Product only (read-only for everyone else).
 export const seedNotes = {
   "ahmad-chatterbox": [
+    {
+      at: 64,
+      date: "Aug 26, 2026",
+      groups: [
+        { heading: "2.4.0", items: [
+          "Sage speech-to-speech now works both ways.",
+          "Italian and Russian added, bringing the total to 22 languages.",
+          "Sign-in failures now retry instead of signing the user out.",
+          "Sage is now generally available (GA).",
+          "The language list now follows the model.",
+          "Admin rights are still needed to upgrade.",
+        ] },
+      ],
+    },
+    {
+      at: 63,
+      date: "Aug 25, 2026",
+      groups: [
+        { heading: "2.3.0", items: [
+          "Audio is now self-contained.",
+          "Ships as a single installer.",
+          "Capture is app-specific.",
+          "Pausing a call stops capture.",
+          "The default audio device is restored afterwards.",
+          "Mid-call device changes now survive.",
+          "The session screen has been rebuilt.",
+          "Settings are now reliable.",
+          "Diagnostics are on by default.",
+        ] },
+      ],
+    },
     { at: 41, date: "Aug 20, 2026", text: "Nina is currently preparing designs for Dictionary Support for single sessions, workspace selection, Fast and slow mode, Voice Cloning, and Voice Selection Support for incoming and outgoing audio." },
   ],
   "divyam-website-seo": [
