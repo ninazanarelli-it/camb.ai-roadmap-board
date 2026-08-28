@@ -37,7 +37,7 @@ export const team = [
     current: {
       title: "Design tokens + Shared components",
       status: "In Progress",
-      targetDate: "Aug 28",
+      targetDate: "Sep 3",
       airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwhN607ZEcp5Ii7X?blocks=hide",
     },
     roles: [{ label: "Product", name: "Nina" }, { label: "QA", name: "Prachi" }],
@@ -191,6 +191,7 @@ export const oncall = {
 // Notes are authored by Product only (read-only for everyone else).
 export const seedNotes = {
   "ahmad-chatterbox": [
+    { at: 44, date: "Aug 28, 2026", title: "Chatterbox 2.4.1 shipped", text: "A small branding update. Nothing else changed.\n\nWhat's new\nThe CAMB.AI logo now appears beneath the Sign In button.\nThe confirmation page is branded instead of showing the plain chatterbox.camb.ai line.\n\nGood to know\nWorth upgrading to, but not urgent." },
     { at: 43, date: "Aug 26, 2026", title: "Chatterbox 2.4.0 shipped", text: "Translation now runs in both directions as speech, the model list is shorter, and two more languages are available.\n\nHighlights\nThe new Sage model translates speech to speech both ways, so the incoming side is spoken rather than shown as text.\nItalian and Russian join the list, bringing it to twenty two.\nA billing or network problem used to sign you out and reopen a sign in tab. Chatterbox now explains what happened and offers a retry.\n\nModels\nSage is generally available and no longer marked experimental.\nChanging model updates the language list with it, so the picker no longer holds on to the previous model's languages.\n\nGood to know\nUpgrading from 2.3.0 needs administrator rights, as before, and system requirements are unchanged." },
     { at: 42, date: "Aug 25, 2026", title: "Chatterbox 2.3.0 shipped", text: "Chatterbox now handles its own audio end to end: one installer with no dependencies, faster session start, and capture from a specific application on the machine.\n\nAudio\nThe bundled audio device installs with the app, and upgrading removes any device an earlier version left behind.\nThe device is set up once when Chatterbox opens and stays available for the session, so starting a call no longer waits on audio configuration.\nYou can point Chatterbox at a single app, such as a meeting client, softphone or browser, and it captures from that source.\nPausing a session stops capture, and nothing is sent onward until it resumes.\nThe system default recording device is restored when Chatterbox is done, so other apps keep working.\nSwitching or unplugging a headset mid call no longer ends the session; audio recovers and the call continues.\n\nSessions and settings\nThe in call session screen has been rebuilt.\nSettings now save reliably, including rapid changes, and report failed saves or loads instead of dropping them.\nDiagnostics are on by default and Support is a standard part of settings, so the information needed to resolve a client report is already captured." },
     { at: 41, date: "Aug 20, 2026", text: "Nina is currently preparing designs for Dictionary Support for single sessions, workspace selection, Fast and slow mode, Voice Cloning, and Voice Selection Support for incoming and outgoing audio." },
