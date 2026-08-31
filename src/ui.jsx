@@ -21,8 +21,7 @@ export function Icon({ name, size = 16 }) {
   if (name === "backlog")
     return (
       <svg {...common}>
-        <path d="M12 3 3 8l9 5 9-5-9-5Z" />
-        <path d="M3 13l9 5 9-5" />
+        <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
       </svg>
     );
   if (name === "moon")

@@ -177,33 +177,30 @@ export default function App() {
             <div style={{ fontSize: 13, color: "var(--ink-2)" }}>Last updated {board.lastUpdated}</div>
           </div>
           <div style={{ flex: "none", display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ position: "relative" }}>
-              <IconButton label={`Backlog (${(board.backlog || []).length})`} onClick={() => setBacklogOpen(true)}>
-                <Icon name="backlog" size={18} />
-              </IconButton>
-              {!!(board.backlog || []).length && (
-                <span
-                  style={{
-                    position: "absolute",
-                    top: -4,
-                    right: -4,
-                    minWidth: 16,
-                    height: 16,
-                    padding: "0 4px",
-                    borderRadius: 999,
-                    background: "var(--primary)",
-                    color: "#fff",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    display: "grid",
-                    placeItems: "center",
-                    lineHeight: 1,
-                  }}
-                >
-                  {(board.backlog || []).length}
-                </span>
-              )}
-            </div>
+            <button
+              type="button"
+              className="iconBtn"
+              onClick={() => setBacklogOpen(true)}
+              style={{
+                flex: "none",
+                height: 36,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "0 13px",
+                borderRadius: 8,
+                border: "1px solid var(--line)",
+                background: "transparent",
+                color: "var(--ink-2)",
+                font: "inherit",
+                fontSize: 13,
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
+            >
+              <Icon name="backlog" size={16} />
+              Backlog
+            </button>
             <IconButton label="Golden Rules" onClick={() => setRulesOpen(true)}>
               <Icon name="rules" size={18} />
             </IconButton>
@@ -612,21 +609,19 @@ export default function App() {
           />
           {(board.backend || []).map((item) => (
             <div className="row" key={item.title} style={ROW}>
-              <Avatar
-                name={item.reporter}
-                avatar={{ light: { bg: "#EDEDED", fg: "#5B5B5D" }, dark: { bg: "#242424", fg: "#B8B8BA" } }}
-                dark={dark}
-              />
+              <div style={{ fontSize: 14, color: "var(--ink-2)", paddingTop: 4 }}>Reported by {item.reporter}</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <span style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em" }}>
                   {item.title}
                 </span>
-                <span style={{ fontSize: 14, color: "var(--ink-2)", textWrap: "pretty" }}>{item.text}</span>
+                <span style={{ fontSize: 15, lineHeight: 1.55, color: "var(--ink-2)", textWrap: "pretty" }}>
+                  {item.text}
+                </span>
               </div>
               <div
                 style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14, paddingTop: 5 }}
               >
-                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>{item.date}</span>
+                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>Released {item.date}</span>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14, fontWeight: 500 }}>
                   <StatusDot color="#0F741F" />
                   Shipped
@@ -987,79 +982,48 @@ export default function App() {
       )}
 
       {backlogOpen && (
-        <Modal label="Backlog" maxWidth={680} padding="48px 24px" onClose={() => setBacklogOpen(false)}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "space-between",
-              gap: 24,
-              padding: "32px 40px 24px",
-              borderBottom: "1px solid var(--line)",
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: "var(--ink-2)",
-                  marginBottom: 12,
-                }}
-              >
-                Product Priority Queue
+        <Modal label="Backlog" maxWidth={620} padding="48px 24px" onClose={() => setBacklogOpen(false)}>
+          <div style={{ padding: "26px 28px 24px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                gap: 20,
+                marginBottom: 18,
+              }}
+            >
+              <div>
+                <h2 style={{ margin: "0 0 6px", fontSize: 21, fontWeight: 600, letterSpacing: "-0.02em" }}>Backlog</h2>
+                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55, color: "var(--ink-2)", textWrap: "pretty" }}>
+                  Agreed work that is not scheduled yet. It moves into Up next when Product prioritises it.
+                </p>
               </div>
-              <h2 style={{ margin: "0 0 10px", fontSize: 32, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1 }}>
-                Backlog
-              </h2>
-              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55, color: "var(--ink-2)", maxWidth: 480, textWrap: "pretty" }}>
-                Deprioritised for now — not being picked up until it moves back into the queue.
-              </p>
+              <IconButton label="Close" size={34} onClick={() => setBacklogOpen(false)}>
+                <Icon name="close" size={16} />
+              </IconButton>
             </div>
-            <IconButton label="Close" size={34} onClick={() => setBacklogOpen(false)}>
-              <Icon name="close" size={16} />
-            </IconButton>
-          </div>
-
-          <div style={{ padding: "8px 40px 0" }}>
-            {!(board.backlog || []).length && (
-              <div style={{ padding: "30px 0 26px", fontSize: 14, color: "var(--ink-2)" }}>Backlog is empty.</div>
-            )}
-            {(board.backlog || []).map((item, i) => (
-              <div
-                key={item.title}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "52px 1fr",
-                  gap: 20,
-                  padding: "22px 0",
-                  borderBottom: "1px solid var(--line-soft)",
-                }}
-              >
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {(board.backlog || []).map((item) => (
                 <div
+                  key={item.title}
                   style={{
-                    fontSize: 15,
-                    fontWeight: 600,
-                    color: "var(--primary)",
-                    fontVariantNumeric: "tabular-nums",
-                    paddingTop: 2,
+                    display: "flex",
+                    alignItems: "baseline",
+                    justifyContent: "space-between",
+                    gap: 20,
+                    padding: "13px 0",
+                    borderTop: "1px solid var(--line-soft)",
                   }}
                 >
-                  {pad(i + 1)}
-                </div>
-                <div>
-                  <div style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.015em", marginBottom: 4 }}>
+                  <span style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.35, textWrap: "pretty" }}>
                     {item.title}
-                  </div>
-                  {item.note && <div style={{ fontSize: 14, color: "var(--ink-2)" }}>{item.note}</div>}
+                  </span>
+                  <span style={{ flex: "none", fontSize: 13, color: "var(--ink-2)" }}>{item.note}</span>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-
-          <div style={{ height: 24 }} />
         </Modal>
       )}
     </div>
