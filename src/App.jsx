@@ -177,6 +177,33 @@ export default function App() {
             <div style={{ fontSize: 13, color: "var(--ink-2)" }}>Last updated {board.lastUpdated}</div>
           </div>
           <div style={{ flex: "none", display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ position: "relative" }}>
+              <IconButton label={`Backlog (${(board.backlog || []).length})`} onClick={() => setBacklogOpen(true)}>
+                <Icon name="backlog" size={18} />
+              </IconButton>
+              {!!(board.backlog || []).length && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: -4,
+                    right: -4,
+                    minWidth: 16,
+                    height: 16,
+                    padding: "0 4px",
+                    borderRadius: 999,
+                    background: "var(--primary)",
+                    color: "#fff",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    display: "grid",
+                    placeItems: "center",
+                    lineHeight: 1,
+                  }}
+                >
+                  {(board.backlog || []).length}
+                </span>
+              )}
+            </div>
             <IconButton label="Golden Rules" onClick={() => setRulesOpen(true)}>
               <Icon name="rules" size={18} />
             </IconButton>
@@ -258,28 +285,7 @@ export default function App() {
         <section style={{ marginBottom: 60 }}>
           <SectionHead
             title="Up next"
-            aside={
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
-                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>Pick in this order</span>
-                <button
-                  type="button"
-                  onClick={() => setBacklogOpen(true)}
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 600,
-                    color: "var(--ink-2)",
-                    background: "var(--surface)",
-                    border: 0,
-                    borderRadius: 20,
-                    padding: "4px 11px",
-                    cursor: "pointer",
-                    font: "inherit",
-                  }}
-                >
-                  Backlog · {(board.backlog || []).length}
-                </button>
-              </span>
-            }
+            aside={<span style={{ fontSize: 13, color: "var(--ink-2)" }}>Pick in this order</span>}
           />
           {board.queue.map((item) => {
             const placeholder = item.title === "Placeholder";
@@ -483,7 +489,7 @@ export default function App() {
                     {h.groups.map((group) => (
                       <div key={group.label}>
                         <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 10 }}>
-                          <span style={{ alignSelf: "center" }}>
+                          <span style={{ display: "inline-flex", alignSelf: "center" }}>
                             <StatusDot color={GROUP_COLOR[group.label] || "#89898A"} />
                           </span>
                           <span style={{ fontSize: 14, fontWeight: 600 }}>{group.label}</span>
@@ -558,7 +564,7 @@ export default function App() {
 
         <section style={{ marginTop: 60 }}>
           <SectionHead
-            title="Product Releases (last 7 days)"
+            title="Product Releases"
             aside={<span style={{ fontSize: 13, color: "var(--ink-2)" }}>Open info for what was done</span>}
           />
           {(board.releases || []).map((rel) => (
@@ -605,30 +611,27 @@ export default function App() {
             aside={<span style={{ fontSize: 13, color: "var(--ink-2)" }}>Reported by the Infra team</span>}
           />
           {(board.backend || []).map((item) => (
-            <div
-              key={item.title}
-              style={{ padding: "18px 12px", margin: "0 -12px", borderBottom: "1px solid var(--line-soft)" }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "baseline",
-                  justifyContent: "space-between",
-                  gap: 16,
-                  flexWrap: "wrap",
-                  marginBottom: 6,
-                }}
-              >
+            <div className="row" key={item.title} style={ROW}>
+              <Avatar
+                name={item.reporter}
+                avatar={{ light: { bg: "#EDEDED", fg: "#5B5B5D" }, dark: { bg: "#242424", fg: "#B8B8BA" } }}
+                dark={dark}
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <span style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em" }}>
                   {item.title}
                 </span>
-                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>
-                  {item.reporter} · {item.date}
+                <span style={{ fontSize: 14, color: "var(--ink-2)", textWrap: "pretty" }}>{item.text}</span>
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14, paddingTop: 5 }}
+              >
+                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>{item.date}</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14, fontWeight: 500 }}>
+                  <StatusDot color="#0F741F" />
+                  Shipped
                 </span>
               </div>
-              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "var(--ink-2)", textWrap: "pretty" }}>
-                {item.text}
-              </p>
             </div>
           ))}
         </section>
@@ -984,25 +987,79 @@ export default function App() {
       )}
 
       {backlogOpen && (
-        <Modal label="Backlog" maxWidth={560} onClose={() => setBacklogOpen(false)}>
-          <ModalHead
-            kicker="Product Priority Queue"
-            title="Backlog"
-            titleSize={22}
-            padding="26px 28px 20px"
-            onClose={() => setBacklogOpen(false)}
-          />
-          <div style={{ padding: "6px 28px 22px" }}>
+        <Modal label="Backlog" maxWidth={680} padding="48px 24px" onClose={() => setBacklogOpen(false)}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              gap: 24,
+              padding: "32px 40px 24px",
+              borderBottom: "1px solid var(--line)",
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--ink-2)",
+                  marginBottom: 12,
+                }}
+              >
+                Product Priority Queue
+              </div>
+              <h2 style={{ margin: "0 0 10px", fontSize: 32, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1 }}>
+                Backlog
+              </h2>
+              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55, color: "var(--ink-2)", maxWidth: 480, textWrap: "pretty" }}>
+                Deprioritised for now — not being picked up until it moves back into the queue.
+              </p>
+            </div>
+            <IconButton label="Close" size={34} onClick={() => setBacklogOpen(false)}>
+              <Icon name="close" size={16} />
+            </IconButton>
+          </div>
+
+          <div style={{ padding: "8px 40px 0" }}>
             {!(board.backlog || []).length && (
               <div style={{ padding: "30px 0 26px", fontSize: 14, color: "var(--ink-2)" }}>Backlog is empty.</div>
             )}
-            {(board.backlog || []).map((item) => (
-              <div key={item.title} style={{ padding: "16px 0", borderBottom: "1px solid var(--line-soft)" }}>
-                <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>{item.title}</div>
-                {item.note && <div style={{ fontSize: 13, color: "var(--ink-2)" }}>{item.note}</div>}
+            {(board.backlog || []).map((item, i) => (
+              <div
+                key={item.title}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "52px 1fr",
+                  gap: 20,
+                  padding: "22px 0",
+                  borderBottom: "1px solid var(--line-soft)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 600,
+                    color: "var(--primary)",
+                    fontVariantNumeric: "tabular-nums",
+                    paddingTop: 2,
+                  }}
+                >
+                  {pad(i + 1)}
+                </div>
+                <div>
+                  <div style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.015em", marginBottom: 4 }}>
+                    {item.title}
+                  </div>
+                  {item.note && <div style={{ fontSize: 14, color: "var(--ink-2)" }}>{item.note}</div>}
+                </div>
               </div>
             ))}
           </div>
+
+          <div style={{ height: 24 }} />
         </Modal>
       )}
     </div>

@@ -89,7 +89,7 @@ export const GOLDEN_RULES = [
 
 export const STATUS_COLOR = {
   "In Progress": "#EC5512",
-  "In Release": "#0EA5A5",
+  "In Release": "#2E9BD6",
   "On going": "#5980A6",
   Delayed: "#C0392B",
   QA: "#FFBE18",

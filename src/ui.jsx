@@ -18,6 +18,13 @@ export function Icon({ name, size = 16 }) {
         <path d="M14 2v4h6" />
       </svg>
     );
+  if (name === "backlog")
+    return (
+      <svg {...common}>
+        <path d="M12 3 3 8l9 5 9-5-9-5Z" />
+        <path d="M3 13l9 5 9-5" />
+      </svg>
+    );
   if (name === "moon")
     return (
       <svg {...common}>
