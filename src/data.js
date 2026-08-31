@@ -27,8 +27,20 @@ export const team = [
     id: "divyam-website-seo",
     name: "Divyam",
     avatar: { light: { bg: "#E4EFFE", fg: "#2E6CB8" }, dark: { bg: "#1C2D41", fg: "#6FB0FE" } },
-    current: { title: "Website Translation SEO", status: "Delayed", targetDate: "Aug 21", airtableUrl: null },
+    current: { title: "Website Translation SEO", status: "In Release", targetDate: "Aug 21", airtableUrl: null },
     roles: [{ label: "QA", name: "Joshua" }],
+  },
+  {
+    id: "khushi-onboarding",
+    name: "Khushi",
+    avatar: { light: { bg: "#F2EEFF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
+    current: {
+      title: "No sign up onboarding",
+      status: "In Release",
+      targetDate: "Aug 31",
+      airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwDE1Auo8LdbQ77k?blocks=hide",
+    },
+    roles: [{ label: "QA", name: "Prachi" }],
   },
   {
     id: "kavii-design-tokens",
@@ -55,23 +67,21 @@ export const team = [
     roles: [{ label: "Product", name: "Nina" }, { label: "QA", name: "Joshua" }],
   },
   {
-    id: "khushi-onboarding",
-    name: "Khushi",
-    avatar: { light: { bg: "#F2EEFF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
-    current: {
-      title: "No sign up onboarding",
-      status: "In Progress",
-      targetDate: "Aug 31",
-      airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwDE1Auo8LdbQ77k?blocks=hide",
-    },
-    roles: [{ label: "QA", name: "Prachi" }],
-  },
-  {
     id: "kavii-lipsync",
     name: "Kavii",
     avatar: { light: { bg: "#E5FBED", fg: "#0F741F" }, dark: { bg: "#1E3E26", fg: "#76F295" } },
     current: { title: "Lipsync", status: "On going", targetDate: null, airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwlTXRWuh38X8PZc?blocks=hide" },
     roles: [{ label: "QA", name: "Kavyasree" }],
+  },
+];
+
+// Reported by the Infra team.
+export const backend = [
+  {
+    title: "Transcription service overhaul",
+    date: "Aug 27",
+    reporter: "Matt",
+    text: "A large overhaul of the transcription service is now in production. Users should notice a decent improvement in diarization and transcript accuracy.",
   },
 ];
 
@@ -129,12 +139,23 @@ export const releases = [
 ];
 
 export const queue = [
-  { priority: 1, title: "API Docs redesign + Split Dubbing API", status: "Not Started", airtableUrl: null },
-  { priority: 2, title: "Audiobook Chapters and Subchapters", status: "Not Started", airtableUrl: null },
-  { priority: 3, title: "Editors export modal", status: "Not Started", airtableUrl: null },
-  { priority: 4, title: "UX/UI Folders Structure redesign", status: "Not Started", airtableUrl: null },
-  { priority: 5, title: "No sign up onboarding (batch 2)", status: "Not Started", airtableUrl: null },
-  { priority: 6, title: "Agentic Dubbing", status: "Not Started", airtableUrl: null, flag: "Focus of this sprint", highlight: true },
+  { priority: 1, title: "API Docs quick redesign", status: "Not Started", note: "24 hours", airtableUrl: null },
+  { priority: 2, title: "Audiobook Chapters and Subchapters", status: "Not Started", note: "Backend changes", airtableUrl: null },
+  {
+    priority: 3,
+    title: "Agentic Dubbing",
+    status: "Not Started",
+    note: "Hackathon results land next Monday, then product and tech work on it full time to get the tool to a finished state by the end of the month",
+    airtableUrl: null,
+    flag: "Focus of this sprint",
+    highlight: true,
+  },
+];
+
+export const backlog = [
+  { title: "Editors export modal", note: "Waiting on prioritisation" },
+  { title: "UX/UI Folders Structure redesign", note: "Waiting on prioritisation" },
+  { title: "No sign up onboarding (batch 2)", note: "Follows batch 1 results" },
 ];
 
 // On-call rotates Monday to Monday, covering the Bugs and Portal Findings boards.
@@ -142,52 +163,48 @@ export const oncall = {
   current: { week: "Mon Aug 31 → Mon Sep 7", engineer: "Divyam", qa: "Mohamed Nihaal" },
   next: { week: "Mon Sep 7 → Mon Sep 14", engineer: "Khushi", qa: "Joshua Almeida" },
   handover: {
-    pending: true,
-    pendingNote: "The report has been created and will be uploaded shortly.",
     author: "Kavii Suri",
     range: "Mon Aug 24 → Mon Aug 31",
     scope: "Bugs and Portal Findings boards",
-    engineer: "Khushi Chhonkare",
-    qa: "Mohamed Nihaal",
+    engineer: "Kavii Suri",
+    qa: "Joshua Almeida",
     numbers: [
-      { value: "14", label: "filed" },
-      { value: "13", label: "resolved" },
-      { value: "+1", label: "net" },
-      { value: "21", label: "moved" },
+      { value: "27", label: "filed" },
+      { value: "9", label: "resolved" },
+      { value: "+18", label: "net" },
+      { value: "20", label: "moved" },
     ],
     groups: [
       { label: "Shipped", items: [
-        "Artifacts, words cut at the start or end of dialogues, and hallucinations · Aug 18",
-        "Artifacts, dropouts and cut offs · Aug 17",
-        "Cannot generate voice · Aug 18",
-        "Sample music for Audio Separation changed · Aug 19 · internal",
-        "Chapter name not displayed properly while typing · Aug 18 · internal",
-        "Create voice button too close to the title in the voice library · Aug 17 · internal",
-        "Final mix export broken · Aug 19 · internal",
-        "More files allowed for supplemental assets, with drag and drop when the toggle is off · Aug 18 · internal",
-        "Audio generation too slow · Aug 16",
-        "Top button tooltip said re-generate all audio · Aug 19",
-        "Transcription box disappearing and erroring on boxes that had text · Aug 18 · internal",
-        "Bulk selection dialogue generation failing · Aug 22",
-        "Cut offs, artifacts, hallucinations and source leaking into target · Aug 18",
-        "Play and pause button not working · Aug 19",
-      ] },
-      { label: "Cleared QA, ready to close", items: [
-        "Get started label fixed for enterprise · Medium · internal",
-        "Final mix shown as a preview in the editor · Low · internal",
-        "Toggle between original and background audio in the project editor · Low · internal",
+        "Playback issue · Aug 24",
+        "Stories: dialogue boxes could not be added in Chapter 019 · Aug 26",
+        "PNG image translation and text issue · Aug 24",
+        "Get started label fixed for enterprise · Aug 24 · internal",
+        "Thai dubbing audio cut off on TMC Sanpo in Oyama · Aug 25",
+        "Exporting taking far too long · Aug 27",
+        "Lipsync: subject detection using a face prompt · Aug 27",
+        "Lipsync: original video slowed down while the render came out faster · Aug 27",
+        "Lipsync: dialogue out of sync · Aug 27",
       ] },
       { label: "In QA", items: [
-        "PNG image translation and text issue · blocking the project",
-      ] },
-      { label: "Failed QA, back for rework", items: [
-        "Users blocked from generating translations when the language is not detected · Low · internal",
+        "Extra settings disabled for Mars instruct · Low · internal",
+        "Preview playback mix UI regression · Low · internal",
+        "Blur line at the beginning of Salma Shadi · High",
       ] },
       { label: "In progress", items: [
-        "Audiobooks: Tamil pronunciation and word truncation issues on the instruct model · High",
-        "Frequent hallucinations in Tamil audiobooks · Low",
+        "Lipsync: subject detection · High",
+        "Lipsync: results not coming out as expected · High",
+        "Lips not syncing · High",
+        "Thin black vertical line on Julie's left side · High",
+        "Lips not syncing · High",
+      ] },
+      { label: "In Todo", items: [
+        "Lipsync: original lip movement, no modification happening",
+        "Adel's lips not coming out properly",
+        "Lipsync: original lip movement, no modification happening",
       ] },
     ],
+    closing: "The Lipsync bugs are newly reported and mostly blocked: 9 filed, 3 shipped, 6 blocked on the provider. The provider has been notified and will send an update early this week, and we are following up.",
   },
 };
 
@@ -205,6 +222,7 @@ export const seedNotes = {
     { at: 31, date: "Aug 20, 2026", text: "Late on schedule due to other priorities that came up. Divyam is starting work on it today. QA call is scheduled for Tuesday 25 August." },
   ],
   "kavii-design-tokens": [
+    { at: 71, date: "Aug 31, 2026", text: "Icons and buttons are now standardized in production. Upload components and input fields are next." },
     { at: 12, date: "Aug 20, 2026", text: "Text and color are now standardised in production. Icons and buttons should go soon as well. Kavii continues to work on the other components." },
     { at: 11, date: "Aug 19, 2026", text: "Colors, typography and buttons are under review. Kavii is working on implementing all the other components." },
   ],
@@ -247,5 +265,14 @@ export function loadBoard() {
     .map((t, i) => ({ t, i, ongoing: t.current.status === "On going" ? 1 : 0 }))
     .sort((a, b) => a.ongoing - b.ongoing || a.i - b.i)
     .map((x) => x.t);
-  return { lastUpdated, team: team_, releases, queue: queue.slice().sort((a, b) => a.priority - b.priority), oncall, seedNotes };
+  return {
+    lastUpdated,
+    team: team_,
+    releases,
+    backend,
+    backlog,
+    queue: queue.slice().sort((a, b) => a.priority - b.priority),
+    oncall,
+    seedNotes,
+  };
 }

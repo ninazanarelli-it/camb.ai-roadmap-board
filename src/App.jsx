@@ -5,7 +5,7 @@ import { Avatar, Icon, IconButton, Modal, SectionHead, StatusDot } from "./ui.js
 
 const NOTES_KEY = "roadmap-board-notes-v2";
 const SEED_KEY = "roadmap-board-notes-seed";
-const SEED_VERSION = "20";
+const SEED_VERSION = "21";
 const THEME_KEY = "roadmap-board-theme";
 const dot = (s) => STATUS_COLOR[s] || "#89898A";
 const pad = (n) => String(n).padStart(2, "0");
@@ -89,6 +89,7 @@ export default function App() {
 
   const [reportOpen, setReportOpen] = useState(false);
   const [rulesOpen, setRulesOpen] = useState(false);
+  const [backlogOpen, setBacklogOpen] = useState(false);
   const [notesFor, setNotesFor] = useState(null);
   const [infoFor, setInfoFor] = useState(null);
   const [zoomIndex, setZoomIndex] = useState(null);
@@ -99,7 +100,7 @@ export default function App() {
     [release]
   );
 
-  useScrollLock(rulesOpen || !!notesFor || !!infoFor || zoomIndex !== null);
+  useScrollLock(rulesOpen || backlogOpen || !!notesFor || !!infoFor || zoomIndex !== null);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -112,6 +113,7 @@ export default function App() {
       if (zoomIndex !== null) setZoomIndex(null);
       else {
         setRulesOpen(false);
+        setBacklogOpen(false);
         setNotesFor(null);
         setInfoFor(null);
       }
@@ -256,7 +258,28 @@ export default function App() {
         <section style={{ marginBottom: 60 }}>
           <SectionHead
             title="Up next"
-            aside={<span style={{ fontSize: 13, color: "var(--ink-2)" }}>Pick in this order</span>}
+            aside={
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
+                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>Pick in this order</span>
+                <button
+                  type="button"
+                  onClick={() => setBacklogOpen(true)}
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: "var(--ink-2)",
+                    background: "var(--surface)",
+                    border: 0,
+                    borderRadius: 20,
+                    padding: "4px 11px",
+                    cursor: "pointer",
+                    font: "inherit",
+                  }}
+                >
+                  Backlog · {(board.backlog || []).length}
+                </button>
+              </span>
+            }
           />
           {board.queue.map((item) => {
             const placeholder = item.title === "Placeholder";
@@ -479,11 +502,11 @@ export default function App() {
                           <span style={{ fontSize: 13, color: "var(--ink-2)" }}>{GROUP_HINT[group.label] || ""}</span>
                         </div>
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                          {group.items.map((line) => {
+                          {group.items.map((line, i) => {
                             const [text, ...meta] = line.split(" · ");
                             return (
                               <div
-                                key={line}
+                                key={`${group.label}-${i}`}
                                 style={{
                                   display: "flex",
                                   alignItems: "baseline",
@@ -511,6 +534,21 @@ export default function App() {
                       </div>
                     ))}
                   </div>
+                  {h.closing && (
+                    <div
+                      style={{
+                        marginTop: 20,
+                        paddingTop: 16,
+                        borderTop: "1px solid var(--line-soft)",
+                        fontSize: 14,
+                        lineHeight: 1.6,
+                        color: "var(--ink-2)",
+                        textWrap: "pretty",
+                      }}
+                    >
+                      {h.closing}
+                    </div>
+                  )}
                 </div>
               )}
               </>
@@ -520,7 +558,7 @@ export default function App() {
 
         <section style={{ marginTop: 60 }}>
           <SectionHead
-            title="Just Released (last 7 days)"
+            title="Product Releases (last 7 days)"
             aside={<span style={{ fontSize: 13, color: "var(--ink-2)" }}>Open info for what was done</span>}
           />
           {(board.releases || []).map((rel) => (
@@ -557,6 +595,40 @@ export default function App() {
                   <Icon name="info" size={15} />
                 </IconButton>
               </div>
+            </div>
+          ))}
+        </section>
+
+        <section style={{ marginTop: 60 }}>
+          <SectionHead
+            title="Backend improvements (performance)"
+            aside={<span style={{ fontSize: 13, color: "var(--ink-2)" }}>Reported by the Infra team</span>}
+          />
+          {(board.backend || []).map((item) => (
+            <div
+              key={item.title}
+              style={{ padding: "18px 12px", margin: "0 -12px", borderBottom: "1px solid var(--line-soft)" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  justifyContent: "space-between",
+                  gap: 16,
+                  flexWrap: "wrap",
+                  marginBottom: 6,
+                }}
+              >
+                <span style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em" }}>
+                  {item.title}
+                </span>
+                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>
+                  {item.reporter} · {item.date}
+                </span>
+              </div>
+              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "var(--ink-2)", textWrap: "pretty" }}>
+                {item.text}
+              </p>
             </div>
           ))}
         </section>
@@ -907,6 +979,29 @@ export default function App() {
                 <span>In effect Aug 2026</span>
               </div>
             </div>
+          </div>
+        </Modal>
+      )}
+
+      {backlogOpen && (
+        <Modal label="Backlog" maxWidth={560} onClose={() => setBacklogOpen(false)}>
+          <ModalHead
+            kicker="Product Priority Queue"
+            title="Backlog"
+            titleSize={22}
+            padding="26px 28px 20px"
+            onClose={() => setBacklogOpen(false)}
+          />
+          <div style={{ padding: "6px 28px 22px" }}>
+            {!(board.backlog || []).length && (
+              <div style={{ padding: "30px 0 26px", fontSize: 14, color: "var(--ink-2)" }}>Backlog is empty.</div>
+            )}
+            {(board.backlog || []).map((item) => (
+              <div key={item.title} style={{ padding: "16px 0", borderBottom: "1px solid var(--line-soft)" }}>
+                <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>{item.title}</div>
+                {item.note && <div style={{ fontSize: 13, color: "var(--ink-2)" }}>{item.note}</div>}
+              </div>
+            ))}
           </div>
         </Modal>
       )}
