@@ -312,6 +312,20 @@ export default function App() {
                         {item.urgent}
                       </span>
                     )}
+                    {item.flag && (
+                      <span
+                        style={{
+                          fontSize: 12,
+                          fontWeight: 600,
+                          padding: "2px 8px",
+                          borderRadius: 5,
+                          background: "var(--primary-tint)",
+                          color: "var(--primary-2)",
+                        }}
+                      >
+                        {item.flag}
+                      </span>
+                    )}
                   </div>
                   {item.note && <span style={{ fontSize: 14, color: "var(--ink-2)" }}>{item.note}</span>}
                 </div>
@@ -370,108 +384,136 @@ export default function App() {
           </div>
 
           <div style={{ borderRadius: 10, border: "1px solid var(--line)", overflow: "hidden" }}>
-            <button
-              type="button"
-              className="reportToggle"
-              onClick={() => setReportOpen((v) => !v)}
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 16,
-                padding: "16px 20px",
-                background: "transparent",
-                border: 0,
-                cursor: "pointer",
-                font: "inherit",
-                textAlign: "left",
-                color: "var(--ink)",
-              }}
-            >
-              <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                <span style={{ fontSize: 15, fontWeight: 600 }}>Last week's bug report — {h.range}</span>
-                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>
-                  Handed over by {h.author} · {num("filed")} filed, {num("resolved")} resolved
+            {h.pending ? (
+              <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 6 }}>
+                <span style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 15, fontWeight: 600 }}>Last week's bug report — {h.range}</span>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      fontSize: 12,
+                      fontWeight: 600,
+                      padding: "2px 9px",
+                      borderRadius: 20,
+                      background: "var(--primary-tint)",
+                      color: "var(--primary-2)",
+                    }}
+                  >
+                    <StatusDot color="var(--primary)" />
+                    Pending
+                  </span>
                 </span>
-              </span>
-              <span style={{ fontSize: 13, fontWeight: 500, color: "var(--ink-2)", whiteSpace: "nowrap" }}>
-                {reportOpen ? "Hide details" : "Show details"}
-              </span>
-            </button>
+                <span style={{ fontSize: 13, color: "var(--ink-2)" }}>Handed over by {h.author}</span>
+                <span style={{ fontSize: 14, color: "var(--ink-2)" }}>{h.pendingNote}</span>
+              </div>
+            ) : (
+              <>
+              <button
+                type="button"
+                className="reportToggle"
+                onClick={() => setReportOpen((v) => !v)}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 16,
+                  padding: "16px 20px",
+                  background: "transparent",
+                  border: 0,
+                  cursor: "pointer",
+                  font: "inherit",
+                  textAlign: "left",
+                  color: "var(--ink)",
+                }}
+              >
+                <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  <span style={{ fontSize: 15, fontWeight: 600 }}>Last week's bug report — {h.range}</span>
+                  <span style={{ fontSize: 13, color: "var(--ink-2)" }}>
+                    Handed over by {h.author} · {num("filed")} filed, {num("resolved")} resolved
+                  </span>
+                </span>
+                <span style={{ fontSize: 13, fontWeight: 500, color: "var(--ink-2)", whiteSpace: "nowrap" }}>
+                  {reportOpen ? "Hide details" : "Show details"}
+                </span>
+              </button>
 
-            {reportOpen && (
-              <div style={{ padding: "4px 20px 22px" }}>
-                <div
-                  style={{
-                    padding: "16px 0 20px",
-                    borderTop: "1px solid var(--line-soft)",
-                    fontSize: 14,
-                    lineHeight: 1.6,
-                    color: "var(--ink-2)",
-                    textWrap: "pretty",
-                  }}
-                >
-                  {num("filed")} bugs were filed last week and {num("resolved")} were resolved, so the backlog grew by{" "}
-                  {num("net").replace("+", "")}. The {total} items below are what the on-call pair tracked across the{" "}
-                  {h.scope}, grouped by where each one sits right now.
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                  {h.groups.map((group) => (
-                    <div key={group.label}>
-                      <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 10 }}>
-                        <span style={{ alignSelf: "center" }}>
-                          <StatusDot color={GROUP_COLOR[group.label] || "#89898A"} />
-                        </span>
-                        <span style={{ fontSize: 14, fontWeight: 600 }}>{group.label}</span>
-                        <span
-                          style={{
-                            fontSize: 12,
-                            fontWeight: 600,
-                            color: "var(--ink-2)",
-                            background: "var(--surface)",
-                            borderRadius: 20,
-                            padding: "2px 9px",
-                          }}
-                        >
-                          {group.items.length}
-                        </span>
-                        <span style={{ fontSize: 13, color: "var(--ink-2)" }}>{GROUP_HINT[group.label] || ""}</span>
-                      </div>
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        {group.items.map((line) => {
-                          const [text, ...meta] = line.split(" · ");
-                          return (
-                            <div
-                              key={line}
-                              style={{
-                                display: "flex",
-                                alignItems: "baseline",
-                                justifyContent: "space-between",
-                                gap: 20,
-                                padding: "8px 0 8px 18px",
-                                borderBottom: "1px solid var(--line-soft)",
-                              }}
-                            >
-                              <span style={{ fontSize: 14, lineHeight: 1.45, textWrap: "pretty" }}>{text}</span>
-                              <span
+              {reportOpen && (
+                <div style={{ padding: "4px 20px 22px" }}>
+                  <div
+                    style={{
+                      padding: "16px 0 20px",
+                      borderTop: "1px solid var(--line-soft)",
+                      fontSize: 14,
+                      lineHeight: 1.6,
+                      color: "var(--ink-2)",
+                      textWrap: "pretty",
+                    }}
+                  >
+                    {num("filed")} bugs were filed last week and {num("resolved")} were resolved, so the backlog grew by{" "}
+                    {num("net").replace("+", "")}. The {total} items below are what the on-call pair tracked across the{" "}
+                    {h.scope}, grouped by where each one sits right now.
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                    {h.groups.map((group) => (
+                      <div key={group.label}>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 10 }}>
+                          <span style={{ alignSelf: "center" }}>
+                            <StatusDot color={GROUP_COLOR[group.label] || "#89898A"} />
+                          </span>
+                          <span style={{ fontSize: 14, fontWeight: 600 }}>{group.label}</span>
+                          <span
+                            style={{
+                              fontSize: 12,
+                              fontWeight: 600,
+                              color: "var(--ink-2)",
+                              background: "var(--surface)",
+                              borderRadius: 20,
+                              padding: "2px 9px",
+                            }}
+                          >
+                            {group.items.length}
+                          </span>
+                          <span style={{ fontSize: 13, color: "var(--ink-2)" }}>{GROUP_HINT[group.label] || ""}</span>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          {group.items.map((line) => {
+                            const [text, ...meta] = line.split(" · ");
+                            return (
+                              <div
+                                key={line}
                                 style={{
-                                  flex: "none",
-                                  fontSize: 12,
-                                  color: "var(--ink-2)",
-                                  whiteSpace: "nowrap",
+                                  display: "flex",
+                                  alignItems: "baseline",
+                                  justifyContent: "space-between",
+                                  gap: 20,
+                                  padding: "8px 0 8px 18px",
+                                  borderBottom: "1px solid var(--line-soft)",
                                 }}
                               >
-                                {meta.join(" · ")}
-                              </span>
-                            </div>
-                          );
-                        })}
+                                <span style={{ fontSize: 14, lineHeight: 1.45, textWrap: "pretty" }}>{text}</span>
+                                <span
+                                  style={{
+                                    flex: "none",
+                                    fontSize: 12,
+                                    color: "var(--ink-2)",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  {meta.join(" · ")}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
+              </>
             )}
           </div>
         </section>

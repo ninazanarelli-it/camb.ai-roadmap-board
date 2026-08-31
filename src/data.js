@@ -133,15 +133,19 @@ export const queue = [
   { priority: 2, title: "Audiobook Chapters and Subchapters", status: "Not Started", airtableUrl: null },
   { priority: 3, title: "Editors export modal", status: "Not Started", airtableUrl: null },
   { priority: 4, title: "UX/UI Folders Structure redesign", status: "Not Started", airtableUrl: null },
+  { priority: 5, title: "No sign up onboarding (batch 2)", status: "Not Started", airtableUrl: null },
+  { priority: 6, title: "Agentic Dubbing", status: "Not Started", airtableUrl: null, flag: "Focus of this sprint", highlight: true },
 ];
 
 // On-call rotates Monday to Monday, covering the Bugs and Portal Findings boards.
 export const oncall = {
-  current: { week: "Mon Aug 24 → Mon Aug 31", engineer: "Kavii", qa: "Joshua Almeida" },
-  next: { week: "Mon Aug 31 → Mon Sep 7", engineer: "Divyam", qa: "Mohamed Nihaal" },
+  current: { week: "Mon Aug 31 → Mon Sep 7", engineer: "Divyam", qa: "Mohamed Nihaal" },
+  next: { week: "Mon Sep 7 → Mon Sep 14", engineer: "Khushi", qa: "Joshua Almeida" },
   handover: {
-    author: "Khushi Chhonkare",
-    range: "Mon Aug 17 → Mon Aug 24",
+    pending: true,
+    pendingNote: "The report has been created and will be uploaded shortly.",
+    author: "Kavii Suri",
+    range: "Mon Aug 24 → Mon Aug 31",
     scope: "Bugs and Portal Findings boards",
     engineer: "Khushi Chhonkare",
     qa: "Mohamed Nihaal",
