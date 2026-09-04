@@ -256,9 +256,8 @@ export default function App() {
               gap: 20,
               alignItems: "center",
               padding: "16px 12px",
-              margin: "0 -12px",
+              margin: "12px -12px 20px",
               borderRadius: 8,
-              borderBottom: "1px solid var(--line-soft)",
               background: "var(--primary-tint)",
             }}
           >
