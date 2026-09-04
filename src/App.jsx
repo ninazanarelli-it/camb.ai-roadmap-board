@@ -4,8 +4,6 @@ import { GOLDEN_RULES, GROUP_COLOR, GROUP_HINT, STATUS_COLOR } from "./goldenRul
 import { Avatar, Icon, IconButton, Modal, SectionHead, StatusDot } from "./ui.jsx";
 
 const NOTES_KEY = "roadmap-board-notes-v2";
-const SEED_KEY = "roadmap-board-notes-seed";
-const SEED_VERSION = "21";
 const THEME_KEY = "roadmap-board-theme";
 const dot = (s) => STATUS_COLOR[s] || "#89898A";
 const pad = (n) => String(n).padStart(2, "0");
@@ -47,20 +45,17 @@ function useSeededNotes(board) {
     try {
       stored = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}");
     } catch (e) {}
-    let stamped = null;
+    const merged = { ...stored };
+    const seed = board.seedNotes || {};
+    Object.keys(seed).forEach((name) => {
+      const existing = merged[name] || [];
+      const missing = seed[name].filter((s) => !existing.some((n) => n.at === s.at));
+      merged[name] = existing.concat(missing).sort((a, b) => (b.at || 0) - (a.at || 0));
+    });
     try {
-      stamped = localStorage.getItem(SEED_KEY);
+      localStorage.setItem(NOTES_KEY, JSON.stringify(merged));
     } catch (e) {}
-    if (stamped !== SEED_VERSION) {
-      const merged = { ...stored, ...(board.seedNotes || {}) };
-      try {
-        localStorage.setItem(NOTES_KEY, JSON.stringify(merged));
-        localStorage.setItem(SEED_KEY, SEED_VERSION);
-      } catch (e) {}
-      setNotes(merged);
-    } else {
-      setNotes(stored);
-    }
+    setNotes(merged);
   }, [board]);
   return notes;
 }
@@ -175,6 +170,45 @@ export default function App() {
               source of truth for every task — this board is the summary, without the detail.
             </p>
             <div style={{ fontSize: 13, color: "var(--ink-2)" }}>Last updated {board.lastUpdated}</div>
+            <div
+              style={{
+                marginTop: 16,
+                display: "flex",
+                alignItems: "center",
+                gap: 9,
+                padding: "10px 13px",
+                borderRadius: 8,
+                border: "1px solid var(--line)",
+                background: "transparent",
+                maxWidth: 700,
+              }}
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--ink-2)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ flex: "none" }}
+              >
+                <path d="m3 11 19-9-9 19-2-8-8-2Z" />
+              </svg>
+              <span style={{ fontSize: 13, fontWeight: 400, lineHeight: 1.45, color: "var(--ink-2)", textWrap: "pretty" }}>
+                Great news — the new CAMB.AI website just got released.{" "}
+                <a
+                  href="https://camb.ai"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="airtableLink"
+                  style={{ fontWeight: 500, color: "var(--ink)" }}
+                >
+                  Go check it out ↗
+                </a>
+              </span>
+            </div>
           </div>
           <div style={{ flex: "none", display: "flex", alignItems: "center", gap: 8 }}>
             <button
@@ -215,6 +249,56 @@ export default function App() {
 
         <section style={{ marginBottom: 60 }}>
           <SectionHead title="Currently working on" />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "150px 1fr 210px",
+              gap: 20,
+              alignItems: "center",
+              padding: "16px 12px",
+              margin: "0 -12px",
+              borderRadius: 8,
+              borderBottom: "1px solid var(--line-soft)",
+              background: "var(--primary-tint)",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+              <span
+                style={{
+                  width: 24,
+                  height: 24,
+                  flex: "none",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: 6,
+                  background: "var(--primary)",
+                  color: "#fff",
+                }}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8 19 13M15 9h0M17.8 6.2 19 5M3 21l9-9M12.2 6.2 11 5" />
+                </svg>
+              </span>
+              <span style={{ fontSize: 15, fontWeight: 500 }}>Hackathon</span>
+            </div>
+            <div style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em", textWrap: "pretty" }}>
+              Hackathon on Agentic Dubbing in progress
+            </div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", textAlign: "right" }}>
+              <span style={{ fontSize: 13, fontWeight: 500, color: "var(--primary-2)" }}>
+                Delivery Monday 7th, 9am Dubai time
+              </span>
+            </div>
+          </div>
           {board.team.map((dev) => (
             <div className="row" key={dev.id} style={ROW}>
               <Avatar name={dev.name} avatar={dev.avatar} dark={dark} />

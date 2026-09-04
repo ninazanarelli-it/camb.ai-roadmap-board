@@ -24,25 +24,6 @@ export const lastUpdated = formatBuildTime(__BUILD_TIME__);
 
 export const team = [
   {
-    id: "divyam-website-seo",
-    name: "Divyam",
-    avatar: { light: { bg: "#E4EFFE", fg: "#2E6CB8" }, dark: { bg: "#1C2D41", fg: "#6FB0FE" } },
-    current: { title: "Website Translation SEO", status: "In Release", targetDate: "Aug 21", airtableUrl: null },
-    roles: [{ label: "QA", name: "Joshua" }],
-  },
-  {
-    id: "khushi-onboarding",
-    name: "Khushi",
-    avatar: { light: { bg: "#F2EEFF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
-    current: {
-      title: "No sign up onboarding",
-      status: "In Release",
-      targetDate: "Aug 31",
-      airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwDE1Auo8LdbQ77k?blocks=hide",
-    },
-    roles: [{ label: "QA", name: "Prachi" }],
-  },
-  {
     id: "kavii-design-tokens",
     name: "Kavii",
     avatar: { light: { bg: "#E5FBED", fg: "#0F741F" }, dark: { bg: "#1E3E26", fg: "#76F295" } },
@@ -78,6 +59,12 @@ export const team = [
 // Reported by the Infra team.
 export const backend = [
   {
+    title: "MARS-Instruct quality patch in Dubbing",
+    date: "Sep 2",
+    reporter: "Matt",
+    text: "A patch to MARS-Instruct quality in Dubbing is now in production. Customers should notice far fewer gaps and speedups in their generations.",
+  },
+  {
     title: "Transcription service overhaul",
     date: "Aug 27",
     reporter: "Matt",
@@ -87,6 +74,41 @@ export const backend = [
 
 // Shipped in the last 7 days.
 export const releases = [
+  {
+    id: "divyam-website-seo",
+    name: "Divyam",
+    avatar: { light: { bg: "#E4EFFE", fg: "#2E6CB8" }, dark: { bg: "#1C2D41", fg: "#6FB0FE" } },
+    title: "Website Translation SEO",
+    releasedOn: "Sep 3",
+    roles: [{ label: "QA", name: "Joshua" }],
+    airtableUrl: null,
+    details: [
+      "Translated websites are now served SEO ready: translated pages are crawlable and indexable on the client's own hostname, served from the edge rather than hitting Redis and Postgres on every request.",
+      "A detailed guide on how to set it up is coming soon.",
+    ],
+  },
+  {
+    id: "khushi-onboarding",
+    name: "Khushi",
+    avatar: { light: { bg: "#F2EEFF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
+    title: "No sign up onboarding",
+    releasedOn: "Sep 1",
+    roles: [{ label: "QA", name: "Prachi" }],
+    airtableUrl: null,
+    details: [
+      "New users who arrive from a specific tool landing page now land directly on the tool they came for, without signing up or going through the whole onboarding flow first. They get the actual settings interface, can upload videos or type text, and set the job up exactly as a signed in user would.",
+      "When they click generate, a small pop up asks them to sign up. Sign up takes one click, and the output starts generating straight after.",
+      "Why we did it: the account form and onboarding sat in front of any output and were the biggest drop off in the funnel. The ask now comes after the user has set up a real job.",
+      "Batch 1 covers Dubbing, Subtitles, Stories, TTS, Live Speech Translation and Image Translation. We track conversion and engagement per tool for two weeks, and how many users complete the one click sign up at the generate step. Batch 2 stays in the backlog and will be scoped from those results.",
+    ],
+    comparisons: [
+      {
+        title: "Text to Speech, before sign up",
+        before: { src: "uploads/pasted-1788517959017-0.png", caption: "Full tool interface, no account — settings, voice, model and input are all usable" },
+        after: { src: "uploads/pasted-1788518239986-0.png", caption: "On generate — one click sign up pop up, output starts right after" },
+      },
+    ],
+  },
   {
     id: "khushi-profile-settings",
     name: "Khushi",
@@ -139,10 +161,9 @@ export const releases = [
 ];
 
 export const queue = [
-  { priority: 1, title: "API Docs quick redesign", status: "Not Started", note: "24 hours", airtableUrl: null },
-  { priority: 2, title: "Audiobook Chapters and Subchapters", status: "Not Started", note: "Backend changes", airtableUrl: null },
+  { priority: 1, title: "Audiobook Chapters and Subchapters", status: "Not Started", note: "Backend changes", airtableUrl: null },
   {
-    priority: 3,
+    priority: 2,
     title: "Agentic Dubbing",
     status: "Not Started",
     note: "Hackathon results land next Monday, then product and tech work on it full time to get the tool to a finished state by the end of the month",
@@ -153,6 +174,7 @@ export const queue = [
 ];
 
 export const backlog = [
+  { title: "API Docs quick redesign", note: "24 hours" },
   { title: "Editors export modal", note: "Waiting on prioritisation" },
   { title: "UX/UI Folders Structure redesign", note: "Waiting on prioritisation" },
   { title: "No sign up onboarding (batch 2)", note: "Follows batch 1 results" },
@@ -160,8 +182,8 @@ export const backlog = [
 
 // On-call rotates Monday to Monday, covering the Bugs and Portal Findings boards.
 export const oncall = {
-  current: { week: "Mon Aug 31 → Mon Sep 7", engineer: "Divyam", qa: "Mohamed Nihaal" },
-  next: { week: "Mon Sep 7 → Mon Sep 14", engineer: "Khushi", qa: "Joshua Almeida" },
+  current: { week: "Mon Aug 31 → Mon Sep 7", engineer: "Divyam", qa: "Joshua Almeida" },
+  next: { week: "Mon Sep 7 → Mon Sep 14", engineer: "Khushi", qa: "Mohamed Nihaal" },
   handover: {
     author: "Kavii Suri",
     range: "Mon Aug 24 → Mon Aug 31",
@@ -218,6 +240,7 @@ export const seedNotes = {
     { at: 41, date: "Aug 20, 2026", text: "Nina is currently preparing designs for Dictionary Support for single sessions, workspace selection, Fast and slow mode, Voice Cloning, and Voice Selection Support for incoming and outgoing audio." },
   ],
   "divyam-website-seo": [
+    { at: 33, date: "Sep 3, 2026", text: "Released\nWebsite Translation SEO is live in production.\nA detailed guide on how to set it up is coming soon." },
     { at: 32, date: "Aug 25, 2026", text: "QA call moved to Aug 26: Kavii flagged an architectural issue in the implementation.\nThe worker hits Redis and Postgres on every request instead of the edge, so Divyam is moving to a Cloudflare KV pass through cache and generating certs for client hostnames, then testing end to end." },
     { at: 31, date: "Aug 20, 2026", text: "Late on schedule due to other priorities that came up. Divyam is starting work on it today. QA call is scheduled for Tuesday 25 August." },
   ],
@@ -251,6 +274,7 @@ export const seedNotes = {
     },
   ],
   "khushi-onboarding": [
+    { at: 63, date: "Sep 1, 2026", text: "Released\nNo sign up onboarding is live for Dubbing, Subtitles, Stories, TTS, Live Speech Translation and Image Translation.\n\nWhat it is\nNew users who arrive from a specific tool landing page now land directly on the tool they came for, without signing up or going through the whole onboarding flow first.\nThey get the actual settings interface, can upload videos or type text, and set the job up exactly as a signed in user would.\nWhen they click generate, a small pop up asks them to sign up. Sign up takes one click, and the output starts generating straight after.\n\nWhy we did it\nThe account form and onboarding sat in front of any output and were the biggest drop off in the funnel. The ask now comes after the user has set up a real job.\n\nWhat we measure\nConversion and engagement per tool for two weeks, and how many users complete the one click sign up at the generate step. Batch 2 is scoped from those results." },
     { at: 62, date: "Aug 25, 2026", text: "First scope\nNo sign up onboarding will be implemented for Dubbing, Subtitles, Stories, TTS, Live Speech Translation and Image Translation.\n\nAfter launch\nWe track conversion and engagement for two weeks, and roll it out to the remaining tools if the numbers improve." },
     { at: 61, date: "Aug 24, 2026", text: "Kickoff call set up with Nina, Khushi and Kavii." },
   ],
