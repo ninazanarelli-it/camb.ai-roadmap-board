@@ -84,7 +84,7 @@ export const releases = [
     airtableUrl: null,
     details: [
       "Translated websites are now served SEO ready: translated pages are crawlable and indexable on the client's own hostname, served from the edge rather than hitting Redis and Postgres on every request.",
-      "A detailed guide on how to set it up is coming soon.",
+      "Set up instructions: [How to set up Website Translation SEO](https://docs.google.com/document/d/16YiAPs6ZBWsVOlSKHJ0Mqec1VO0N_wWmng9LXa2nU-Q/edit?tab=t.0)",
     ],
   },
   {
@@ -182,51 +182,54 @@ export const backlog = [
 
 // On-call rotates Monday to Monday, covering the Bugs and Portal Findings boards.
 export const oncall = {
-  current: { week: "Mon Aug 31 → Mon Sep 7", engineer: "Divyam", qa: "Joshua Almeida" },
-  next: { week: "Mon Sep 7 → Mon Sep 14", engineer: "Khushi", qa: "Mohamed Nihaal" },
+  current: { week: "Mon Sep 7 → Mon Sep 14", engineer: "Khushi", qa: "Joshua Almeida" },
+  next: { week: "Mon Sep 14 → Mon Sep 21", engineer: "Mohamed Nihaal", qa: "Joshua Almeida" },
   handover: {
-    author: "Kavii Suri",
-    range: "Mon Aug 24 → Mon Aug 31",
+    author: "Divyam Gupta",
+    range: "Mon Aug 31 → Mon Sep 7",
     scope: "Bugs and Portal Findings boards",
-    engineer: "Kavii Suri",
+    engineer: "Divyam Gupta",
     qa: "Joshua Almeida",
     numbers: [
-      { value: "27", label: "filed" },
-      { value: "9", label: "resolved" },
-      { value: "+18", label: "net" },
+      { value: "20", label: "filed" },
+      { value: "6", label: "resolved" },
+      { value: "+14", label: "net" },
       { value: "20", label: "moved" },
     ],
     groups: [
       { label: "Shipped", items: [
-        "Playback issue · Aug 24",
-        "Stories: dialogue boxes could not be added in Chapter 019 · Aug 26",
-        "PNG image translation and text issue · Aug 24",
-        "Get started label fixed for enterprise · Aug 24 · internal",
-        "Thai dubbing audio cut off on TMC Sanpo in Oyama · Aug 25",
-        "Exporting taking far too long · Aug 27",
-        "Lipsync: subject detection using a face prompt · Aug 27",
-        "Lipsync: original video slowed down while the render came out faster · Aug 27",
-        "Lipsync: dialogue out of sync · Aug 27",
+        "Preview mix issues · Divyam · Sep 4",
+        "TTS text area · Divyam · Sep 2",
+        "Show final mix as preview in the editor · Divyam · Sep 4 · internal",
+        "Toggle between original and background audio in project editor · Divyam · Sep 4 · internal",
+        "Regenerate button fails to refresh content, keeping stale dialogue displayed · Mohamed Nihaal · Sep 1",
+        "Portal created 1000+ speakers for a video of 3 speakers max · Matt Baas · Sep 2",
+      ] },
+      { label: "Cleared QA, ready to close", items: [
+        "Remove nova intro modal for new members opening editor · Low · internal",
       ] },
       { label: "In QA", items: [
-        "Extra settings disabled for Mars instruct · Low · internal",
-        "Preview playback mix UI regression · Low · internal",
-        "Blur line at the beginning of Salma Shadi · High",
+        "Add ISO codes for languages to the portal for Keywords · Low · internal",
+        "Add user facing errors for Keywords · Low · internal",
+        "401 while generating mix · Low · internal",
       ] },
       { label: "In progress", items: [
-        "Lipsync: subject detection · High",
-        "Lipsync: results not coming out as expected · High",
-        "Lips not syncing · High",
-        "Thin black vertical line on Julie's left side · High",
-        "Lips not syncing · High",
+        "Lip sync issue · High",
+        "Unable to detect Salma's face separately for lip-sync · High",
+        "File upload issue · High",
       ] },
       { label: "In Todo", items: [
-        "Lipsync: original lip movement, no modification happening",
-        "Adel's lips not coming out properly",
-        "Lipsync: original lip movement, no modification happening",
+        "Portal to mastered audio error found and noises · Critical",
+        "Bad mastered output quality · High",
+        "Gap inconsistencies and overall improper audio duration increase · High",
+        "MARS Instruct vs Pro · High",
+        "AI Voice Issue · Medium",
+      ] },
+      { label: "In Triage", items: [
+        "Lip sync: the original video is at normal speed, but the dialogue audio is too fast · High",
       ] },
     ],
-    closing: "The Lipsync bugs are newly reported and mostly blocked: 9 filed, 3 shipped, 6 blocked on the provider. The provider has been notified and will send an update early this week, and we are following up.",
+    closing: "Of the 20 touched tickets: 6 shipped, 1 through QA, 4 in QA, 3 in progress, 5 in todo, 1 in triage. Khushi picks up on-call this week and Joshua stays on QA.",
   },
 };
 
@@ -240,7 +243,7 @@ export const seedNotes = {
     { at: 41, date: "Aug 20, 2026", text: "Nina is currently preparing designs for Dictionary Support for single sessions, workspace selection, Fast and slow mode, Voice Cloning, and Voice Selection Support for incoming and outgoing audio." },
   ],
   "divyam-website-seo": [
-    { at: 33, date: "Sep 3, 2026", text: "Released\nWebsite Translation SEO is live in production.\nA detailed guide on how to set it up is coming soon." },
+    { at: 33, date: "Sep 3, 2026", text: "Released\nWebsite Translation SEO is live in production.\nSet up instructions: [How to set up Website Translation SEO](https://docs.google.com/document/d/16YiAPs6ZBWsVOlSKHJ0Mqec1VO0N_wWmng9LXa2nU-Q/edit?tab=t.0)" },
     { at: 32, date: "Aug 25, 2026", text: "QA call moved to Aug 26: Kavii flagged an architectural issue in the implementation.\nThe worker hits Redis and Postgres on every request instead of the edge, so Divyam is moving to a Cloudflare KV pass through cache and generating certs for client hostnames, then testing end to end." },
     { at: 31, date: "Aug 20, 2026", text: "Late on schedule due to other priorities that came up. Divyam is starting work on it today. QA call is scheduled for Tuesday 25 August." },
   ],

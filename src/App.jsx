@@ -9,6 +9,34 @@ const dot = (s) => STATUS_COLOR[s] || "#89898A";
 const pad = (n) => String(n).padStart(2, "0");
 const rolesLabel = (roles) => roles.map((r) => `${r.label}: ${r.name}`).join("  |  ");
 
+// Render inline [label](url) markdown links inside notes and release details as
+// anchors; everything else stays plain text (line breaks handled by the caller).
+const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
+function renderRich(text) {
+  const out = [];
+  let last = 0;
+  let m;
+  LINK_RE.lastIndex = 0;
+  while ((m = LINK_RE.exec(text)) !== null) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    out.push(
+      <a
+        key={`${m.index}-${m[2]}`}
+        className="airtableLink"
+        href={m[2]}
+        target="_blank"
+        rel="noreferrer"
+        style={{ fontWeight: 500, color: "var(--ink)" }}
+      >
+        {m[1]}
+      </a>
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out.length ? out : text;
+}
+
 const ROW = {
   display: "grid",
   gridTemplateColumns: "150px 1fr 210px",
@@ -85,6 +113,7 @@ export default function App() {
   const [reportOpen, setReportOpen] = useState(false);
   const [rulesOpen, setRulesOpen] = useState(false);
   const [backlogOpen, setBacklogOpen] = useState(false);
+  const [hackOpen, setHackOpen] = useState(false);
   const [notesFor, setNotesFor] = useState(null);
   const [infoFor, setInfoFor] = useState(null);
   const [zoomIndex, setZoomIndex] = useState(null);
@@ -95,7 +124,7 @@ export default function App() {
     [release]
   );
 
-  useScrollLock(rulesOpen || backlogOpen || !!notesFor || !!infoFor || zoomIndex !== null);
+  useScrollLock(rulesOpen || backlogOpen || hackOpen || !!notesFor || !!infoFor || zoomIndex !== null);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -109,6 +138,7 @@ export default function App() {
       else {
         setRulesOpen(false);
         setBacklogOpen(false);
+        setHackOpen(false);
         setNotesFor(null);
         setInfoFor(null);
       }
@@ -292,10 +322,32 @@ export default function App() {
             <div style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em", textWrap: "pretty" }}>
               Hackathon on Agentic Dubbing in progress
             </div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", textAlign: "right" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 10, textAlign: "right" }}>
               <span style={{ fontSize: 13, fontWeight: 500, color: "var(--primary-2)" }}>
-                Delivery Monday 7th, 9am Dubai time
+                Videos under review
               </span>
+              <button
+                type="button"
+                className="hackNoteBtn"
+                onClick={() => setHackOpen(true)}
+                title="Hackathon update"
+                aria-label="Hackathon update"
+                style={{
+                  flex: "none",
+                  width: 28,
+                  height: 28,
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: 7,
+                  border: "1px solid var(--primary)",
+                  background: "var(--bg)",
+                  color: "var(--primary-2)",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
+              >
+                <Icon name="updates" size={15} />
+              </button>
             </div>
           </div>
           {board.team.map((dev) => (
@@ -801,7 +853,7 @@ export default function App() {
           >
             {(release.details || []).map((text) => (
               <p key={text} style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "var(--ink-2)", textWrap: "pretty" }}>
-                {text}
+                {renderRich(text)}
               </p>
             ))}
             {!!(release.comparisons || []).length && (
@@ -911,10 +963,10 @@ export default function App() {
                   ) : note.title ? (
                     <>
                       <div style={{ fontWeight: 600, marginBottom: 6 }}>{note.title}</div>
-                      <span style={{ whiteSpace: "pre-line" }}>{note.text}</span>
+                      <span style={{ whiteSpace: "pre-line" }}>{renderRich(note.text)}</span>
                     </>
                   ) : (
-                    <span style={{ whiteSpace: "pre-line" }}>{note.text}</span>
+                    <span style={{ whiteSpace: "pre-line" }}>{renderRich(note.text)}</span>
                   )}
                 </div>
                 <span
@@ -1106,6 +1158,29 @@ export default function App() {
                 </div>
               ))}
             </div>
+          </div>
+        </Modal>
+      )}
+
+      {hackOpen && (
+        <Modal label="Hackathon update" maxWidth={560} onClose={() => setHackOpen(false)}>
+          <ModalHead
+            kicker={"Hackathon  ·  Agentic Dubbing"}
+            title="Videos under review"
+            titleSize={24}
+            onClose={() => setHackOpen(false)}
+          />
+          <div style={{ padding: "22px 30px 28px", display: "flex", flexDirection: "column", gap: 14 }}>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "var(--ink-2)", textWrap: "pretty" }}>
+              The videos delivered are under review to decide on a winner.
+            </p>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "var(--ink-2)", textWrap: "pretty" }}>
+              We just had a very interesting call about everyone's process and ideas.
+            </p>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "var(--ink-2)", textWrap: "pretty" }}>
+              We have a call tomorrow to define the next 3 weeks plan, to arrive at the end of the month with a perfect
+              working dubbing tool.
+            </p>
           </div>
         </Modal>
       )}

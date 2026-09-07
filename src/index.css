@@ -24,3 +24,4 @@ a:hover { color: var(--primary-2); }
 .iconBtn:hover { background: var(--hover); color: var(--ink) !important; }
 .airtableLink:hover { color: var(--primary) !important; }
 .reportToggle:hover { background: var(--hover); }
+.hackNoteBtn:hover { background: var(--primary); color: #fff !important; }
