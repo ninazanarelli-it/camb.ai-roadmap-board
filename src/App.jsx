@@ -113,7 +113,6 @@ export default function App() {
   const [reportOpen, setReportOpen] = useState(false);
   const [rulesOpen, setRulesOpen] = useState(false);
   const [backlogOpen, setBacklogOpen] = useState(false);
-  const [hackOpen, setHackOpen] = useState(false);
   const [notesFor, setNotesFor] = useState(null);
   const [infoFor, setInfoFor] = useState(null);
   const [zoomIndex, setZoomIndex] = useState(null);
@@ -124,7 +123,7 @@ export default function App() {
     [release]
   );
 
-  useScrollLock(rulesOpen || backlogOpen || hackOpen || !!notesFor || !!infoFor || zoomIndex !== null);
+  useScrollLock(rulesOpen || backlogOpen || !!notesFor || !!infoFor || zoomIndex !== null);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -138,7 +137,6 @@ export default function App() {
       else {
         setRulesOpen(false);
         setBacklogOpen(false);
-        setHackOpen(false);
         setNotesFor(null);
         setInfoFor(null);
       }
@@ -281,73 +279,47 @@ export default function App() {
           <SectionHead title="Currently working on" />
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "150px 1fr 210px",
-              gap: 20,
+              display: "flex",
               alignItems: "center",
-              padding: "16px 12px",
-              margin: "12px -12px 20px",
+              gap: 11,
+              padding: "12px 14px",
+              margin: "12px 0 24px",
               borderRadius: 8,
               background: "var(--primary-tint)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-              <span
-                style={{
-                  width: 24,
-                  height: 24,
-                  flex: "none",
-                  display: "grid",
-                  placeItems: "center",
-                  borderRadius: 6,
-                  background: "var(--primary)",
-                  color: "#fff",
-                }}
+            <span
+              style={{
+                width: 26,
+                height: 26,
+                flex: "none",
+                display: "grid",
+                placeItems: "center",
+                borderRadius: 7,
+                background: "var(--primary)",
+                color: "#fff",
+              }}
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8 19 13M15 9h0M17.8 6.2 19 5M3 21l9-9M12.2 6.2 11 5" />
-                </svg>
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+              </svg>
+            </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)", lineHeight: 1.35, textWrap: "pretty" }}>
+                That's a wrap on the Agentic Dubbing hackathon
               </span>
-              <span style={{ fontSize: 15, fontWeight: 500 }}>Hackathon</span>
-            </div>
-            <div style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em", textWrap: "pretty" }}>
-              Hackathon on Agentic Dubbing in progress
-            </div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 10, textAlign: "right" }}>
-              <span style={{ fontSize: 13, fontWeight: 500, color: "var(--primary-2)" }}>
-                Videos under review
+              <span style={{ fontSize: 13, fontWeight: 400, color: "var(--primary-2)", lineHeight: 1.4, textWrap: "pretty" }}>
+                Congrats Kavii, our winner, and great work from everyone who shipped a video
               </span>
-              <button
-                type="button"
-                className="hackNoteBtn"
-                onClick={() => setHackOpen(true)}
-                title="Hackathon update"
-                aria-label="Hackathon update"
-                style={{
-                  flex: "none",
-                  width: 28,
-                  height: 28,
-                  display: "grid",
-                  placeItems: "center",
-                  borderRadius: 7,
-                  border: "1px solid var(--primary)",
-                  background: "var(--bg)",
-                  color: "var(--primary-2)",
-                  cursor: "pointer",
-                  padding: 0,
-                }}
-              >
-                <Icon name="updates" size={15} />
-              </button>
             </div>
           </div>
           {board.team.map((dev) => (
@@ -358,7 +330,7 @@ export default function App() {
                   <span style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em" }}>
                     {dev.current.title}
                   </span>
-                  {dev.current.airtableUrl ? (
+                  {dev.current.airtableUrl && (
                     <a
                       className="airtableLink"
                       href={dev.current.airtableUrl}
@@ -368,19 +340,6 @@ export default function App() {
                     >
                       Airtable ↗
                     </a>
-                  ) : (
-                    <span
-                      title="Project not available on Airtable"
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 500,
-                        color: "var(--ink-3)",
-                        cursor: "help",
-                        borderBottom: "1px dotted var(--ink-3)",
-                      }}
-                    >
-                      Airtable
-                    </span>
                   )}
                 </div>
                 <div style={{ fontSize: 14, color: "var(--ink-2)" }}>{rolesLabel(dev.roles)}</div>
@@ -1158,29 +1117,6 @@ export default function App() {
                 </div>
               ))}
             </div>
-          </div>
-        </Modal>
-      )}
-
-      {hackOpen && (
-        <Modal label="Hackathon update" maxWidth={560} onClose={() => setHackOpen(false)}>
-          <ModalHead
-            kicker={"Hackathon  ·  Agentic Dubbing"}
-            title="Videos under review"
-            titleSize={24}
-            onClose={() => setHackOpen(false)}
-          />
-          <div style={{ padding: "22px 30px 28px", display: "flex", flexDirection: "column", gap: 14 }}>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "var(--ink-2)", textWrap: "pretty" }}>
-              The videos delivered are under review to decide on a winner.
-            </p>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "var(--ink-2)", textWrap: "pretty" }}>
-              We just had a very interesting call about everyone's process and ideas.
-            </p>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "var(--ink-2)", textWrap: "pretty" }}>
-              We have a call tomorrow to define the next 3 weeks plan, to arrive at the end of the month with a perfect
-              working dubbing tool.
-            </p>
           </div>
         </Modal>
       )}

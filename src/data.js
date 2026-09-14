@@ -1,39 +1,32 @@
-// Data layer. Swap loadBoard() for an Airtable API call later — the UI only
+// Data layer. Swap loadBoard() for an Airtable API call later, the UI only
 // depends on the shape returned here.
 
-// __BUILD_TIME__ is injected by vite.config.js at build time, so this always
-// reflects when the site was last deployed rather than a hand-edited date.
-function formatBuildTime(iso) {
-  const date = new Date(iso);
-  const datePart = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "Asia/Dubai",
-  }).format(date);
-  const timePart = new Intl.DateTimeFormat("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Asia/Dubai",
-  }).format(date);
-  return `${datePart} · ${timePart}`;
-}
-
-export const lastUpdated = formatBuildTime(__BUILD_TIME__);
+export const lastUpdated = "Sep 14, 2026 · 09:40";
 
 export const team = [
   {
-    id: "kavii-design-tokens",
-    name: "Kavii",
-    avatar: { light: { bg: "#E5FBED", fg: "#0F741F" }, dark: { bg: "#1E3E26", fg: "#76F295" } },
+    id: "agentic-dubbing",
+    name: "Kavii, Khushi, Divyam",
+    avatar: { light: { bg: "#EFE9FF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
     current: {
-      title: "Design tokens + Shared components",
+      title: "Agentic Dubbing",
       status: "In Progress",
-      targetDate: "Sep 3",
-      airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwhN607ZEcp5Ii7X?blocks=hide",
+      targetDate: "Sep 30",
+      airtableUrl: null,
     },
-    roles: [{ label: "Product", name: "Nina" }, { label: "QA", name: "Prachi" }],
+    roles: [{ label: "Product", name: "Nina" }],
+  },
+  {
+    id: "ahmad-website-translation-lp",
+    name: "Ahmad",
+    avatar: { light: { bg: "#FFF0E4", fg: "#B5561B" }, dark: { bg: "#3B2A1E", fg: "#FFB782" } },
+    current: {
+      title: "Website Translation: LP and Plans",
+      status: "In Progress",
+      targetDate: "Sep 16",
+      airtableUrl: null,
+    },
+    roles: [{ label: "Product", name: "Bianca" }],
   },
   {
     id: "ahmad-chatterbox",
@@ -104,8 +97,8 @@ export const releases = [
     comparisons: [
       {
         title: "Text to Speech, before sign up",
-        before: { src: "uploads/pasted-1788517959017-0.png", caption: "Full tool interface, no account — settings, voice, model and input are all usable" },
-        after: { src: "uploads/pasted-1788518239986-0.png", caption: "On generate — one click sign up pop up, output starts right after" },
+        before: { src: "uploads/pasted-1788517959017-0.png", caption: "Full tool interface without an account: settings, voice, model and input are all usable" },
+        after: { src: "uploads/pasted-1788518239986-0.png", caption: "On generate: one click sign up pop up, output starts right after" },
       },
     ],
   },
@@ -124,23 +117,23 @@ export const releases = [
     comparisons: [
       {
         title: "Account settings",
-        before: { src: "uploads/pasted-1787213539394-0.png", caption: "Before — Account Settings" },
-        after: { src: "uploads/pasted-1787214242503-0.png", caption: "After — Settings / Profile" },
+        before: { src: "uploads/pasted-1787213539394-0.png", caption: "Before: Account Settings" },
+        after: { src: "uploads/pasted-1787214242503-0.png", caption: "After: Settings / Profile" },
       },
       {
         title: "Workspace settings",
-        before: { src: "uploads/pasted-1787213551229-0.png", caption: "Before — General Settings page" },
-        after: { src: "uploads/pasted-1787214266960-0.png", caption: "After — Settings / Workspaces" },
+        before: { src: "uploads/pasted-1787213551229-0.png", caption: "Before: General Settings page" },
+        after: { src: "uploads/pasted-1787214266960-0.png", caption: "After: Settings / Workspaces" },
       },
       {
         title: "Members",
-        before: { src: "uploads/pasted-1787213573604-0.png", caption: "Before — Members page" },
-        after: { src: "uploads/pasted-1787214291341-0.png", caption: "After — Members modal" },
+        before: { src: "uploads/pasted-1787213573604-0.png", caption: "Before: Members page" },
+        after: { src: "uploads/pasted-1787214291341-0.png", caption: "After: Members modal" },
       },
       {
         title: "Storage",
-        before: { src: "uploads/pasted-1787213579110-0.png", caption: "Before — Storage Settings page" },
-        after: { src: "uploads/pasted-1787216781400-0.png", caption: "After — Storage modal" },
+        before: { src: "uploads/pasted-1787213579110-0.png", caption: "Before: Storage Settings page" },
+        after: { src: "uploads/pasted-1787216781400-0.png", caption: "After: Storage modal" },
       },
     ],
   },
@@ -153,7 +146,7 @@ export const releases = [
     roles: [{ label: "QA", name: "Joshua" }],
     airtableUrl: null,
     details: [
-      "The problem: Telugu output was hallucinating distorted words that read like spelling mistakes even though the input text was correct. The root cause was the LLM hallucinating the wrong fonts when rendering the image — glyphs break on low-resource languages, and Telugu is where the model is weakest. Hindi, Spanish, French and Indonesian were unaffected.",
+      "The problem: Telugu output was hallucinating distorted words that read like spelling mistakes even though the input text was correct. The root cause was the LLM hallucinating the wrong fonts when rendering the image, glyphs break on low-resource languages, and Telugu is where the model is weakest. Hindi, Spanish, French and Indonesian were unaffected.",
       "The solution: we stopped relying on the LLM to draw glyphs. We built our own text rendering engine that renders characters faithfully and reduced the LLM's role to in-painting and cleanup around that rendered text.",
       "Abdulla confirmed the quality is now correct on Indic scripts and the release went to CSM for client delivery.",
     ],
@@ -161,19 +154,15 @@ export const releases = [
 ];
 
 export const queue = [
-  { priority: 1, title: "Audiobook Chapters and Subchapters", status: "Not Started", note: "Backend changes", airtableUrl: null },
-  {
-    priority: 2,
-    title: "Agentic Dubbing",
-    status: "Not Started",
-    note: "Hackathon results land next Monday, then product and tech work on it full time to get the tool to a finished state by the end of the month",
-    airtableUrl: null,
-    flag: "Focus of this sprint",
-    highlight: true,
-  },
+  { priority: 1, title: "Audiobook improvements", status: "Not Started", note: "Kavii", airtableUrl: null },
+  { priority: 2, title: "Document Translation improvements", status: "Not Started", note: "Arnav", airtableUrl: null },
+  { priority: 3, title: "Image Translation improvements", status: "Not Started", note: "Arnav + Adithya", airtableUrl: null },
+  { priority: 4, title: "Subtitles and Closed Captions", status: "Not Started", note: null, airtableUrl: null },
+  { priority: 5, title: "Audio Description", status: "Not Started", note: null, airtableUrl: null },
 ];
 
 export const backlog = [
+  { title: "Design tokens + Shared components", note: "Icons and buttons done" },
   { title: "API Docs quick redesign", note: "24 hours" },
   { title: "Editors export modal", note: "Waiting on prioritisation" },
   { title: "UX/UI Folders Structure redesign", note: "Waiting on prioritisation" },
@@ -182,60 +171,69 @@ export const backlog = [
 
 // On-call rotates Monday to Monday, covering the Bugs and Portal Findings boards.
 export const oncall = {
-  current: { week: "Mon Sep 7 → Mon Sep 14", engineer: "Khushi", qa: "Joshua Almeida" },
-  next: { week: "Mon Sep 14 → Mon Sep 21", engineer: "Mohamed Nihaal", qa: "Joshua Almeida" },
+  current: { week: "Mon Sep 14 → Mon Sep 21", engineer: "Kavii Suri", qa: "Mohamed Nihaal" },
+  next: { week: "Mon Sep 21 → Mon Sep 28", engineer: "Divyam Gupta", qa: "Joshua Almeida" },
   handover: {
-    author: "Divyam Gupta",
-    range: "Mon Aug 31 → Mon Sep 7",
+    author: "Khushi Chhonkare",
+    range: "Mon Sep 7 → Mon Sep 14",
     scope: "Bugs and Portal Findings boards",
-    engineer: "Divyam Gupta",
+    engineer: "Khushi Chhonkare",
     qa: "Joshua Almeida",
     numbers: [
-      { value: "20", label: "filed" },
-      { value: "6", label: "resolved" },
-      { value: "+14", label: "net" },
-      { value: "20", label: "moved" },
+      { value: "34", label: "filed" },
+      { value: "10", label: "resolved" },
+      { value: "+24", label: "net" },
+      { value: "24", label: "moved" },
     ],
     groups: [
       { label: "Shipped", items: [
-        "Preview mix issues · Divyam · Sep 4",
-        "TTS text area · Divyam · Sep 2",
-        "Show final mix as preview in the editor · Divyam · Sep 4 · internal",
-        "Toggle between original and background audio in project editor · Divyam · Sep 4 · internal",
-        "Regenerate button fails to refresh content, keeping stale dialogue displayed · Mohamed Nihaal · Sep 1",
-        "Portal created 1000+ speakers for a video of 3 speakers max · Matt Baas · Sep 2",
+        "Active task is not stopping · Critical",
+        "Audio is playing out of sync when switching to preview mix · Low",
+        "Audio not coming out after editing and re-generating · High",
+        "Cannot unselect export options (radio buttons) · Low",
+        "File upload issue · High",
+        "Import: failed to Lip-sync Studio · High",
+        "Loaders: animation and color flushed, default bg loading line missing · Medium",
+        "Tamil Audiobook: Audiobook Packaging keeps showing under Active Tasks · High",
+        "POST /apis/tts-stream returns HTTP 200 OK with empty 525-byte MP3 header when speech_model is mars-instruct · Critical",
+        "Right-to-left text direction not applied · Medium",
+        "Translate: chevron overflowing out of the field · Medium",
+        "Payment confirmation · Platform",
       ] },
       { label: "Cleared QA, ready to close", items: [
-        "Remove nova intro modal for new members opening editor · Low · internal",
-      ] },
-      { label: "In QA", items: [
-        "Add ISO codes for languages to the portal for Keywords · Low · internal",
-        "Add user facing errors for Keywords · Low · internal",
-        "401 while generating mix · Low · internal",
+        "401 while generating mix · Low",
+        "Add ISO codes for languages to the portal for Keywords · Low",
+        "Add user facing errors for Keywords · Low",
+        "Disable extra settings for mars instruct · Low",
+        "Use Bulk Upsert API for Voiceover Instruction Updates · Low",
       ] },
       { label: "In progress", items: [
-        "Lip sync issue · High",
-        "Unable to detect Salma's face separately for lip-sync · High",
-        "File upload issue · High",
+        "Stories: editor · Medium",
+        "Stories: upload supplemental documents · Medium",
+        "No voices found when filtering through voice in voice selector · Platform",
       ] },
       { label: "In Todo", items: [
-        "Portal to mastered audio error found and noises · Critical",
-        "Bad mastered output quality · High",
-        "Gap inconsistencies and overall improper audio duration increase · High",
-        "MARS Instruct vs Pro · High",
-        "AI Voice Issue · Medium",
+        "Fast pace in dialogue 7 Katana · High",
+        "Regenerate issues · Low",
+        "Too much buffering, Lip-sync Studio · High",
       ] },
       { label: "In Triage", items: [
-        "Lip sync: the original video is at normal speed, but the dialogue audio is too fast · High",
+        "Generated audio not playing after a while · Platform",
       ] },
     ],
-    closing: "Of the 20 touched tickets: 6 shipped, 1 through QA, 4 in QA, 3 in progress, 5 in todo, 1 in triage. Khushi picks up on-call this week and Joshua stays on QA.",
+    closing: "Of the 24 tickets moved across both boards: 12 shipped, 5 through QA, 3 in progress, 3 in todo, 1 still in triage. Kavii picks up on-call next week with Mohamed Nihaal on QA.",
   },
 };
 
 
 // Notes are authored by Product only (read-only for everyone else).
 export const seedNotes = {
+  "ahmad-website-translation-lp": [
+    { at: 71, date: "Sep 14, 2026", text: "Landing page and plans for Website Translation\nWe are building a landing page for Website Translation with a functional tool on the page, and fixing the flows and the navigation inside the platform coming from the landing page.\nWe also created four plans ad hoc for Website Translation.\nDue Sep 16." },
+  ],
+  "agentic-dubbing": [
+    { at: 70, date: "Sep 14, 2026", text: "Working agentic dubbing in four days\nKavii, Khushi and Divyam have a working agentic dubbing pipeline after four days of development.\nThe product has already been shown to clients and received quite a bit of success.\n\nWhat we are working on now\nImproving translation and voiceover generation quality at the endpoints.\nImproving the agent and stress testing it with longer and more complex video.\nMaking the UI perfect." },
+  ],
   "ahmad-chatterbox": [
     { at: 44, date: "Aug 28, 2026", title: "Chatterbox 2.4.1 shipped", text: "A presentation only release that carries CAMB.AI branding through the sign in experience.\n\nWhat changed\nThe sign in screen now shows the CAMB.AI logo beneath the Sign In button, so the app identifies its provider on the first screen a new user sees.\nThe browser page confirming a successful sign in now closes with the CAMB.AI wordmark instead of the plain chatterbox.camb.ai text line.\n\nWhat did not change\nNothing else: no changes to translation, audio capture, sessions, settings, history or sign in behaviour, and no bug fixes.\n\nUpgrading\nWorth doing, but not urgent. Moving from 2.4.0 carries no functional risk, and users who wait lose no capability." },
     { at: 43, date: "Aug 26, 2026", title: "Chatterbox 2.4.0 shipped", text: "Translation now runs in both directions as speech, the model list is shorter, and two more languages are available.\n\nHighlights\nThe new Sage model translates speech to speech both ways, so the incoming side is spoken rather than shown as text.\nItalian and Russian join the list, bringing it to twenty two.\nA billing or network problem used to sign you out and reopen a sign in tab. Chatterbox now explains what happened and offers a retry.\n\nModels\nSage is generally available and no longer marked experimental.\nChanging model updates the language list with it, so the picker no longer holds on to the previous model's languages.\n\nGood to know\nUpgrading from 2.3.0 needs administrator rights, as before, and system requirements are unchanged." },
