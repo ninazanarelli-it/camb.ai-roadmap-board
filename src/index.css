@@ -25,3 +25,44 @@ a:hover { color: var(--primary-2); }
 .airtableLink:hover { color: var(--primary) !important; }
 .reportToggle:hover { background: var(--hover); }
 .hackNoteBtn:hover { background: var(--primary); color: #fff !important; }
+.navLink:hover { color: var(--primary) !important; }
+
+/* Platform roadmap sub-page — page-scoped design tokens so the extra track
+   colours and surface overrides never leak into the board. */
+.platform-page {
+  --surface: #FFFFFF; --hover: #ECECEC; --line: #E0E0E0; --line-soft: #ECECEC;
+  --ink: #202020; --ink-2: #89898A; --ink-3: #C3C3C5;
+  --primary: #EC5512; --primary-2: #CF4B10; --primary-tint: rgba(236, 85, 18, 0.15);
+  --error-tint: rgba(247, 59, 59, 0.12); --error-ink: #9F2626;
+  --t-ship: #CF4B10; --t-ship-tint: rgba(236, 85, 18, 0.13);
+  --t-gen: #0F7E96; --t-gen-tint: rgba(81, 231, 254, 0.20);
+  --t-vod: #5B3FC4; --t-vod-tint: rgba(193, 170, 255, 0.28);
+  --t-live: #9C33AE; --t-live-tint: rgba(243, 148, 255, 0.22);
+  --t-prod: #0F741F; --t-prod-tint: rgba(118, 242, 149, 0.28);
+  --t-demo: #2A62B8; --t-demo-tint: rgba(111, 176, 254, 0.20);
+  --now: #0F741F; --now-tint: rgba(118, 242, 149, 0.22);
+  --past: rgba(32, 32, 32, 0.035);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+.platform-page[data-theme="dark"] {
+  --bg: #181818; --surface: #202020; --hover: #292929; --line: #303030; --line-soft: #242424;
+  --ink: #FFFFFF; --ink-2: #A8A8AA; --ink-3: #626262;
+  --primary: #EC5512; --primary-2: #F7793E; --primary-tint: rgba(236, 85, 18, 0.22);
+  --error-tint: rgba(247, 59, 59, 0.18); --error-ink: #F73B3B;
+  --t-ship: #F7793E; --t-ship-tint: rgba(236, 85, 18, 0.22);
+  --t-gen: #51E7FE; --t-gen-tint: rgba(81, 231, 254, 0.16);
+  --t-vod: #C1AAFF; --t-vod-tint: rgba(193, 170, 255, 0.16);
+  --t-live: #F394FF; --t-live-tint: rgba(243, 148, 255, 0.16);
+  --t-prod: #76F295; --t-prod-tint: rgba(118, 242, 149, 0.16);
+  --t-demo: #6FB0FE; --t-demo-tint: rgba(111, 176, 254, 0.16);
+  --now: #76F295; --now-tint: rgba(118, 242, 149, 0.18);
+  --past: rgba(255, 255, 255, 0.035);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.board-scroll::-webkit-scrollbar { display: none; }
+.rm-back:hover { color: var(--primary) !important; }
+.rm-icontoggle:hover { background: var(--hover) !important; color: var(--ink) !important; }
+.rm-person:hover { border-color: var(--primary) !important; }
+.rm-bar:hover { filter: brightness(0.96); }
+.rm-mark:hover { color: var(--ink) !important; }
+.rm-close:hover { background: var(--hover) !important; color: var(--ink) !important; }

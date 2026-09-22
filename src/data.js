@@ -5,51 +5,34 @@ export const lastUpdated = "Sep 14, 2026 · 09:40";
 
 export const team = [
   {
-    id: "agentic-dubbing",
-    name: "Kavii, Khushi, Divyam",
+    id: "platform-roadmap",
+    name: "Platform",
+    href: "Platform Roadmap.dc.html",
     avatar: { light: { bg: "#EFE9FF", fg: "#5B3FC4" }, dark: { bg: "#322C42", fg: "#C1AAFF" } },
     current: {
-      title: "Agentic Dubbing",
+      title: "Platform roadmap",
       status: "In Progress",
-      targetDate: "Sep 30",
+      targetDate: null,
       airtableUrl: null,
     },
-    roles: [{ label: "Product", name: "Nina" }],
+    roles: [{ label: "Eng", name: "Kavii, Divyam, Khushi, Arnav, Adithya, Nour, Pieter, Matt, Maria" }, { label: "Product", name: "Nina" }],
   },
   {
-    id: "ahmad-website-translation-lp",
-    name: "Ahmad",
+    id: "chatterbox-roadmap",
+    name: "Chatterbox",
+    href: "Chatterbox Roadmap.dc.html",
     avatar: { light: { bg: "#FFF0E4", fg: "#B5561B" }, dark: { bg: "#3B2A1E", fg: "#FFB782" } },
     current: {
-      title: "Website Translation: LP and Plans",
+      title: "Chatterbox roadmap",
       status: "In Progress",
-      targetDate: "Sep 16",
-      airtableUrl: null,
-    },
-    roles: [{ label: "Product", name: "Bianca" }],
-  },
-  {
-    id: "ahmad-chatterbox",
-    name: "Ahmad",
-    avatar: { light: { bg: "#FFF0E4", fg: "#B5561B" }, dark: { bg: "#3B2A1E", fg: "#FFB782" } },
-    current: {
-      title: "Chatterbox",
-      status: "On going",
       targetDate: null,
       airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwc4hvtTifTvB3Sb?blocks=hide",
     },
-    roles: [{ label: "Product", name: "Nina" }, { label: "QA", name: "Joshua" }],
-  },
-  {
-    id: "kavii-lipsync",
-    name: "Kavii",
-    avatar: { light: { bg: "#E5FBED", fg: "#0F741F" }, dark: { bg: "#1E3E26", fg: "#76F295" } },
-    current: { title: "Lipsync", status: "On going", targetDate: null, airtableUrl: "https://airtable.com/appPzA0m65mBklIhr/tblt9rVxbIXp5cYqw/viwlTXRWuh38X8PZc?blocks=hide" },
-    roles: [{ label: "QA", name: "Kavyasree" }],
+    roles: [{ label: "Eng", name: "Ahmad" }, { label: "PM", name: "Sumit" }, { label: "Product", name: "Nina" }, { label: "QA", name: "Joshua" }],
   },
 ];
 
-// Reported by the Infra team.
+// Shipped in the last 7 days.
 export const backend = [
   {
     title: "MARS-Instruct quality patch in Dubbing",
@@ -65,7 +48,6 @@ export const backend = [
   },
 ];
 
-// Shipped in the last 7 days.
 export const releases = [
   {
     id: "divyam-website-seo",
@@ -171,57 +153,37 @@ export const backlog = [
 
 // On-call rotates Monday to Monday, covering the Bugs and Portal Findings boards.
 export const oncall = {
-  current: { week: "Mon Sep 14 → Mon Sep 21", engineer: "Kavii Suri", qa: "Mohamed Nihaal" },
-  next: { week: "Mon Sep 21 → Mon Sep 28", engineer: "Divyam Gupta", qa: "Joshua Almeida" },
+  current: { week: "Mon Sep 21 → Mon Sep 28", engineer: "Divyam Gupta", qa: "Mohamed Nihaal" },
+  next: { week: "Mon Sep 28 → Mon Oct 5", engineer: "Khushi Chhonkare", qa: "Joshua Almeida" },
   handover: {
-    author: "Khushi Chhonkare",
-    range: "Mon Sep 7 → Mon Sep 14",
+    author: "Kavii Suri",
+    range: "Mon Sep 14 → Mon Sep 21",
     scope: "Bugs and Portal Findings boards",
-    engineer: "Khushi Chhonkare",
+    engineer: "Kavii Suri",
     qa: "Joshua Almeida",
     numbers: [
-      { value: "34", label: "filed" },
-      { value: "10", label: "resolved" },
+      { value: "31", label: "filed" },
+      { value: "7", label: "resolved" },
       { value: "+24", label: "net" },
-      { value: "24", label: "moved" },
+      { value: "29", label: "moved" },
     ],
     groups: [
       { label: "Shipped", items: [
-        "Active task is not stopping · Critical",
-        "Audio is playing out of sync when switching to preview mix · Low",
-        "Audio not coming out after editing and re-generating · High",
-        "Cannot unselect export options (radio buttons) · Low",
-        "File upload issue · High",
-        "Import: failed to Lip-sync Studio · High",
-        "Loaders: animation and color flushed, default bg loading line missing · Medium",
-        "Tamil Audiobook: Audiobook Packaging keeps showing under Active Tasks · High",
-        "POST /apis/tts-stream returns HTTP 200 OK with empty 525-byte MP3 header when speech_model is mars-instruct · Critical",
-        "Right-to-left text direction not applied · Medium",
-        "Translate: chevron overflowing out of the field · Medium",
-        "Payment confirmation · Platform",
-      ] },
-      { label: "Cleared QA, ready to close", items: [
-        "401 while generating mix · Low",
-        "Add ISO codes for languages to the portal for Keywords · Low",
-        "Add user facing errors for Keywords · Low",
-        "Disable extra settings for mars instruct · Low",
-        "Use Bulk Upsert API for Voiceover Instruction Updates · Low",
-      ] },
-      { label: "In progress", items: [
-        "Stories: editor · Medium",
-        "Stories: upload supplemental documents · Medium",
-        "No voices found when filtering through voice in voice selector · Platform",
+        "401 while generating mix · Sep 14 · internal",
+        "English Dub: accent mismatch (DRF403) · Sep 15",
+        "Preview playback mix UI regression · Sep 16 · internal",
+        "Right-to-left text direction not applied · Sep 14",
+        "Translate: chevron overflowing out of the field · Sep 14",
+        "[DEV] Button is broken in model selection · Sep 18 · internal",
+        "Project stuck on audio generating · Sep 17",
+        "Payment confirmation · Critical",
       ] },
       { label: "In Todo", items: [
-        "Fast pace in dialogue 7 Katana · High",
-        "Regenerate issues · Low",
-        "Too much buffering, Lip-sync Studio · High",
-      ] },
-      { label: "In Triage", items: [
-        "Generated audio not playing after a while · Platform",
+        "No voices found when filtering through voice in voice selector · Platform",
+        "Speaker assignment created 17 speakers for a single person depending on mood and setting · Transcription",
       ] },
     ],
-    closing: "Of the 24 tickets moved across both boards: 12 shipped, 5 through QA, 3 in progress, 3 in todo, 1 still in triage. Kavii picks up on-call next week with Mohamed Nihaal on QA.",
+    closing: "Divyam Gupta picks up on-call this week with Mohamed Nihaal on QA."
   },
 };
 
@@ -229,15 +191,15 @@ export const oncall = {
 // Notes are authored by Product only (read-only for everyone else).
 export const seedNotes = {
   "ahmad-website-translation-lp": [
-    { at: 71, date: "Sep 14, 2026", text: "Landing page and plans for Website Translation\nWe are building a landing page for Website Translation with a functional tool on the page, and fixing the flows and the navigation inside the platform coming from the landing page.\nWe also created four plans ad hoc for Website Translation.\nDue Sep 16." },
+    { at: 71, date: "Sep 14, 2026", text: "Landing page and plans for Website Translation\nWe are building a landing page for Website Translation with a functional tool on the page, and fixing the flows and the navigation inside the platform coming from the landing page.\nWe also created four plans ad hoc for Website Translation.\nDue Sep 21." },
   ],
   "agentic-dubbing": [
     { at: 70, date: "Sep 14, 2026", text: "Working agentic dubbing in four days\nKavii, Khushi and Divyam have a working agentic dubbing pipeline after four days of development.\nThe product has already been shown to clients and received quite a bit of success.\n\nWhat we are working on now\nImproving translation and voiceover generation quality at the endpoints.\nImproving the agent and stress testing it with longer and more complex video.\nMaking the UI perfect." },
   ],
-  "ahmad-chatterbox": [
-    { at: 44, date: "Aug 28, 2026", title: "Chatterbox 2.4.1 shipped", text: "A presentation only release that carries CAMB.AI branding through the sign in experience.\n\nWhat changed\nThe sign in screen now shows the CAMB.AI logo beneath the Sign In button, so the app identifies its provider on the first screen a new user sees.\nThe browser page confirming a successful sign in now closes with the CAMB.AI wordmark instead of the plain chatterbox.camb.ai text line.\n\nWhat did not change\nNothing else: no changes to translation, audio capture, sessions, settings, history or sign in behaviour, and no bug fixes.\n\nUpgrading\nWorth doing, but not urgent. Moving from 2.4.0 carries no functional risk, and users who wait lose no capability." },
-    { at: 43, date: "Aug 26, 2026", title: "Chatterbox 2.4.0 shipped", text: "Translation now runs in both directions as speech, the model list is shorter, and two more languages are available.\n\nHighlights\nThe new Sage model translates speech to speech both ways, so the incoming side is spoken rather than shown as text.\nItalian and Russian join the list, bringing it to twenty two.\nA billing or network problem used to sign you out and reopen a sign in tab. Chatterbox now explains what happened and offers a retry.\n\nModels\nSage is generally available and no longer marked experimental.\nChanging model updates the language list with it, so the picker no longer holds on to the previous model's languages.\n\nGood to know\nUpgrading from 2.3.0 needs administrator rights, as before, and system requirements are unchanged." },
-    { at: 42, date: "Aug 25, 2026", title: "Chatterbox 2.3.0 shipped", text: "Chatterbox now handles its own audio end to end: one installer with no dependencies, faster session start, and capture from a specific application on the machine.\n\nAudio\nThe bundled audio device installs with the app, and upgrading removes any device an earlier version left behind.\nThe device is set up once when Chatterbox opens and stays available for the session, so starting a call no longer waits on audio configuration.\nYou can point Chatterbox at a single app, such as a meeting client, softphone or browser, and it captures from that source.\nPausing a session stops capture, and nothing is sent onward until it resumes.\nThe system default recording device is restored when Chatterbox is done, so other apps keep working.\nSwitching or unplugging a headset mid call no longer ends the session; audio recovers and the call continues.\n\nSessions and settings\nThe in call session screen has been rebuilt.\nSettings now save reliably, including rapid changes, and report failed saves or loads instead of dropping them.\nDiagnostics are on by default and Support is a standard part of settings, so the information needed to resolve a client report is already captured." },
+  "ahamad-chatterbox": [
+    { at: 44, date: "Aug 28, 2026", text: "Chatterbox 2.4.1 shipped\nA presentation only release that carries CAMB.AI branding through the sign in experience.\n\nWhat changed\nThe sign in screen now shows the CAMB.AI logo beneath the Sign In button, so the app identifies its provider on the first screen a new user sees.\nThe browser page confirming a successful sign in now closes with the CAMB.AI wordmark instead of the plain chatterbox.camb.ai text line.\n\nWhat did not change\nNothing else: no changes to translation, audio capture, sessions, settings, history or sign in behaviour, and no bug fixes.\n\nUpgrading\nWorth doing, but not urgent. Moving from 2.4.0 carries no functional risk, and users who wait lose no capability." },
+    { at: 43, date: "Aug 26, 2026", text: "Chatterbox 2.4.0 shipped\nTranslation now runs in both directions as speech, the model list is shorter, and two more languages are available.\n\nHighlights\nThe new Sage model translates speech to speech both ways, so the incoming side is spoken rather than shown as text.\nItalian and Russian join the list, bringing it to twenty two.\nA billing or network problem used to sign you out and reopen a sign in tab. Chatterbox now explains what happened and offers a retry.\n\nModels\nSage is generally available and no longer marked experimental.\nChanging model updates the language list with it, so the picker no longer holds on to the previous model's languages.\n\nGood to know\nUpgrading from 2.3.0 needs administrator rights, as before, and system requirements are unchanged." },
+    { at: 42, date: "Aug 25, 2026", text: "Chatterbox 2.3.0 shipped\nChatterbox now handles its own audio end to end: one installer with no dependencies, faster session start, and capture from a specific application on the machine.\n\nAudio\nThe bundled audio device installs with the app, and upgrading removes any device an earlier version left behind.\nThe device is set up once when Chatterbox opens and stays available for the session, so starting a call no longer waits on audio configuration.\nYou can point Chatterbox at a single app, such as a meeting client, softphone or browser, and it captures from that source.\nPausing a session stops capture, and nothing is sent onward until it resumes.\nThe system default recording device is restored when Chatterbox is done, so other apps keep working.\nSwitching or unplugging a headset mid call no longer ends the session; audio recovers and the call continues.\n\nSessions and settings\nThe in call session screen has been rebuilt.\nSettings now save reliably, including rapid changes, and report failed saves or loads instead of dropping them.\nDiagnostics are on by default and Support is a standard part of settings, so the information needed to resolve a client report is already captured." },
     { at: 41, date: "Aug 20, 2026", text: "Nina is currently preparing designs for Dictionary Support for single sessions, workspace selection, Fast and slow mode, Voice Cloning, and Voice Selection Support for incoming and outgoing audio." },
   ],
   "divyam-website-seo": [
@@ -251,28 +213,7 @@ export const seedNotes = {
     { at: 11, date: "Aug 19, 2026", text: "Colors, typography and buttons are under review. Kavii is working on implementing all the other components." },
   ],
   "kavii-lipsync": [
-    {
-      at: 51,
-      date: "Aug 22, 2026",
-      groups: [
-        { heading: "Shipped", items: [
-          "Edge Blend controls, which fix the compositing artifacts.",
-          "Frame leaks on different frame rates are fixed.",
-          "Review comments for Lipsync are built, and Niyati has given feedback on them.",
-        ] },
-        { heading: "Investigated", items: [
-          "Issues with variable frame rate sources.",
-          "Issues with non-square pixels (SAR).",
-        ] },
-        { heading: "In progress", items: [
-          "Warnings when two faces are detected for one subject.",
-        ] },
-        { heading: "Looking for solutions", items: [
-          "Color changes introduced by the Lipsync provider.",
-          "Mouths not closing during silence, which the provider does not handle.",
-        ] },
-      ],
-    },
+    { at: 51, date: "Aug 22, 2026", text: "Shipped\nEdge Blend controls, which fix the compositing artifacts.\nFrame leaks on different frame rates are fixed.\nReview comments for Lipsync are built, and Niyati has given feedback on them.\n\nInvestigated\nIssues with variable frame rate sources.\nIssues with non-square pixels (SAR).\n\nIn progress\nWarnings when two faces are detected for one subject.\n\nLooking for solutions\nColor changes introduced by the Lipsync provider.\nMouths not closing during silence, which the provider does not handle." },
   ],
   "khushi-onboarding": [
     { at: 63, date: "Sep 1, 2026", text: "Released\nNo sign up onboarding is live for Dubbing, Subtitles, Stories, TTS, Live Speech Translation and Image Translation.\n\nWhat it is\nNew users who arrive from a specific tool landing page now land directly on the tool they came for, without signing up or going through the whole onboarding flow first.\nThey get the actual settings interface, can upload videos or type text, and set the job up exactly as a signed in user would.\nWhen they click generate, a small pop up asks them to sign up. Sign up takes one click, and the output starts generating straight after.\n\nWhy we did it\nThe account form and onboarding sat in front of any output and were the biggest drop off in the funnel. The ask now comes after the user has set up a real job.\n\nWhat we measure\nConversion and engagement per tool for two weeks, and how many users complete the one click sign up at the generate step. Batch 2 is scoped from those results." },
@@ -286,18 +227,9 @@ export const seedNotes = {
 };
 
 export function loadBoard() {
-  const team_ = team
+  const ordered = team
     .map((t, i) => ({ t, i, ongoing: t.current.status === "On going" ? 1 : 0 }))
     .sort((a, b) => a.ongoing - b.ongoing || a.i - b.i)
     .map((x) => x.t);
-  return {
-    lastUpdated,
-    team: team_,
-    releases,
-    backend,
-    backlog,
-    queue: queue.slice().sort((a, b) => a.priority - b.priority),
-    oncall,
-    seedNotes,
-  };
+  return { lastUpdated, team: ordered, releases, backend, backlog, queue: queue.slice().sort((a, b) => a.priority - b.priority), oncall, seedNotes };
 }

@@ -5,6 +5,13 @@ import { Avatar, Icon, IconButton, Modal, SectionHead, StatusDot } from "./ui.js
 
 const NOTES_KEY = "roadmap-board-notes-v2";
 const THEME_KEY = "roadmap-board-theme";
+// Team rows link to the roadmap sub-pages. The data layer keeps the design
+// export's file names as `href`; map them to the app's hash routes here.
+const ROUTE_HREF = {
+  "Platform Roadmap.dc.html": "#/platform",
+  "Chatterbox Roadmap.dc.html": "#/chatterbox",
+};
+const hrefToHash = (href) => ROUTE_HREF[href] || "#/";
 const dot = (s) => STATUS_COLOR[s] || "#89898A";
 const pad = (n) => String(n).padStart(2, "0");
 const rolesLabel = (roles) => roles.map((r) => `${r.label}: ${r.name}`).join("  |  ");
@@ -277,59 +284,37 @@ export default function App() {
 
         <section style={{ marginBottom: 60 }}>
           <SectionHead title="Currently working on" />
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 11,
-              padding: "12px 14px",
-              margin: "12px 0 24px",
-              borderRadius: 8,
-              background: "var(--primary-tint)",
-            }}
-          >
-            <span
+          {board.team.map((dev) => (
+            <div
+              className="row"
+              key={dev.id}
               style={{
-                width: 26,
-                height: 26,
-                flex: "none",
                 display: "grid",
-                placeItems: "center",
-                borderRadius: 7,
-                background: "var(--primary)",
-                color: "#fff",
+                gridTemplateColumns: "1fr 260px",
+                gap: 20,
+                alignItems: "center",
+                padding: "22px 12px",
+                margin: "0 -12px",
+                borderRadius: 8,
+                borderBottom: "1px solid var(--line-soft)",
               }}
             >
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-              </svg>
-            </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--ink)", lineHeight: 1.35, textWrap: "pretty" }}>
-                That's a wrap on the Agentic Dubbing hackathon
-              </span>
-              <span style={{ fontSize: 13, fontWeight: 400, color: "var(--primary-2)", lineHeight: 1.4, textWrap: "pretty" }}>
-                Congrats Kavii, our winner, and great work from everyone who shipped a video
-              </span>
-            </div>
-          </div>
-          {board.team.map((dev) => (
-            <div className="row" key={dev.id} style={ROW}>
-              <Avatar name={dev.name} avatar={dev.avatar} dark={dark} />
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em" }}>
-                    {dev.current.title}
-                  </span>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
+                  <a
+                    className="navLink"
+                    href={hrefToHash(dev.href)}
+                    style={{
+                      fontSize: 23,
+                      fontWeight: 600,
+                      lineHeight: 1.25,
+                      letterSpacing: "-0.02em",
+                      color: "var(--ink)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {dev.current.title} →
+                  </a>
                   {dev.current.airtableUrl && (
                     <a
                       className="airtableLink"
@@ -344,15 +329,7 @@ export default function App() {
                 </div>
                 <div style={{ fontSize: 14, color: "var(--ink-2)" }}>{rolesLabel(dev.roles)}</div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                  gap: 14,
-                  paddingTop: 5,
-                }}
-              >
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14 }}>
                 {dev.current.targetDate && (
                   <span style={{ fontSize: 13, color: "var(--ink-2)" }}>Due {dev.current.targetDate}</span>
                 )}
@@ -360,14 +337,6 @@ export default function App() {
                   <StatusDot color={dot(dev.current.status)} />
                   {dev.current.status}
                 </span>
-                <IconButton
-                  label={`Updates on ${dev.current.title}`}
-                  size={28}
-                  color={(notes[dev.id] || []).length ? "var(--ink)" : "var(--ink-2)"}
-                  onClick={() => setNotesFor(dev.id)}
-                >
-                  <Icon name="updates" size={15} />
-                </IconButton>
               </div>
             </div>
           ))}
@@ -573,8 +542,8 @@ export default function App() {
                     }}
                   >
                     {num("filed")} bugs were filed last week and {num("resolved")} were resolved, so the backlog grew by{" "}
-                    {num("net").replace("+", "")}. The {total} items below are what the on-call pair tracked across the{" "}
-                    {h.scope}, grouped by where each one sits right now.
+                    {num("net").replace("+", "")}. {num("moved")} tickets moved across the {h.scope} this week; the {total}{" "}
+                    listed below are the ones with a status change worth flagging.
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                     {h.groups.map((group) => (
