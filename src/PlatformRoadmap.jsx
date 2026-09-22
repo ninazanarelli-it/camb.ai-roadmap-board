@@ -41,11 +41,6 @@ const DETAIL = {
   s5: { t: "Document translation", w: "all of week 3", b: [
     "Starts Monday of week 3, closes Friday.",
     "Arnav is also carrying subtitles to its Friday morning delivery the same week. That is the one real double booking on this track: either accept a soft landing on one, or move the doc translation start to the following Monday."] },
-  s6: { t: "Lipsync", w: "from mid week 3, 3 weeks minimum", b: [
-    "Drawn dashed because the scope is not fixed and three weeks is a floor, not a plan.",
-    "Kavii starts thinking about it midweek 3, Maria is involved, and we want Adithya onboarded.",
-    "Three full weeks takes it to the end of week 6, exactly when the generative commentary fold back needs attention. Those two will compete.",
-    "Needs a go or no go by end of week 4 so it does not quietly eat November."] },
   b1: { t: "Timed knowledge graph on real VOD", w: "weeks 1 to 3", b: [
     "Audio, video, metadata, scraped context and general knowledge into one graph that grows and forgets across the runtime.",
     "Faris is the only person on this so far, and the graph in the video Nina saw is his. Matt and Nour join now, Arnav is locked to the shipping track until week 4.",
@@ -70,7 +65,6 @@ const DETAIL = {
   v1: { t: "Generative pipeline into the non live tools", w: "weeks 6 to 8", b: [
     "The upper branch of Akshat's sketch. Whatever the graph and regeneration loop taught us goes back into dubbing, subtitles and audiobooks.",
     "Kavii is the right person for it, he built the agentic shell for all three, so he knows exactly where the linear pipeline is wired in.",
-    "Lipsync collides with this. Mid week 3 plus three weeks runs to the end of week 6, straight into the branch window. Kavii cannot carry both, so lipsync either gets a different lead or gets deferred past demo day.",
     "Mostly backend. The UI should barely move, that was the explicit hope, and it is what makes two weeks plausible.",
     "It may also change how image translation works underneath, even though the interface stays put."] },
   v2: { t: "Non live product quality at 100%", w: "End of week 8", b: [
@@ -113,7 +107,7 @@ const DETAIL = {
 };
 
 const LANES = [
-  { id: "ship", name: "Ship revenue tools", cvar: "--t-ship", who: "Kavii, Divyam, Khushi, Arnav, Adithya", note: "agentified in parallel", rows: 6, items: [
+  { id: "ship", name: "Ship revenue tools", cvar: "--t-ship", who: "Kavii, Divyam, Khushi, Arnav, Adithya", note: "agentified in parallel", rows: 5, items: [
     { k: "s1", row: 1, from: 1, to: 6, title: "Dubbing", sub: "Kavii, Khushi, Divyam", crew: ["Kavii", "Khushi", "Divyam"] },
     { k: "m1", row: 1, at: 6, type: "milestone", title: "Both tools on prod, Mon 28", crew: ["Kavii", "Khushi", "Divyam", "Adithya"] },
     { k: "s2", row: 2, from: 1, to: 6, title: "Image translation", sub: "Adithya", crew: ["Adithya"] },
@@ -123,7 +117,6 @@ const LANES = [
     { k: "m3", row: 4, at: 15, type: "milestone", title: "Ships Fri am, wk 3", crew: ["Arnav", "Adithya"] },
     { k: "s5", row: 5, from: 11, to: 16, title: "Document translation", sub: "Arnav", crew: ["Arnav"] },
     { k: "m4", row: 5, at: 16, type: "milestone", title: "Everything that earns is an agent", crew: ["Kavii", "Khushi", "Divyam", "Arnav", "Adithya"] },
-    { k: "s6", row: 6, from: 13, to: 31, type: "tentative", title: "Lipsync, scope not fixed", sub: "Kavii, Maria, Adithya, 3 weeks minimum", crew: ["Kavii", "Maria", "Adithya"] },
   ] },
   { id: "gen", name: "Generative commentary", cvar: "--t-gen", who: "Faris, Matt, Nour, Arnav", note: "scope to be defined", rows: 1, items: [
     { k: "g1", row: 1, from: 1, to: 26, title: "Generative commentary", sub: "Faris, Matt, Nour, Arnav. Needs to be defined", crew: ["Faris", "Matt", "Nour", "Arnav"] },
